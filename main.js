@@ -12,6 +12,7 @@ server.use(rateLimit({windowMs:60 * 1000, limit: 60, standardHeaders: 'draft-7',
 //加载服务组件
 loadServer('pageRoute');
 loadServer('watchFile');
+loadServer('scanner');
 
 //路由
 server.get('/', pageRoute.index )
