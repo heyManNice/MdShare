@@ -1,7 +1,9 @@
-const server = require('express')();
-const path = require('path');
-const rateLimit= require('express-rate-limit').rateLimit;
+//加载基础初始化服务
+require('./server/init.js');
+main_dirname = __dirname;
 
+const server = require('express')();
+const rateLimit= require('express-rate-limit').rateLimit;
 const port = 8081;
 
 server.use(rateLimit({
@@ -11,10 +13,12 @@ server.use(rateLimit({
 	legacyHeaders: false,
 }))
 
-server.get('/', function (req, res) {
-   res.sendFile(path.join(__dirname,"public","index.html"));
-})
+//加载服务组件
+loadServer('pageRoute');
+
+//路由
+server.get('/', pageRoute.index )
  
 server.listen(port, () => {
-    console.log(`系统已运行在 ${port}`);
+    print(`系统已运行在 ${port}`);
 })
