@@ -1,6 +1,6 @@
 const path = require('path');
-const fs = require("fs");
+const chokidar = require('chokidar');
 
-fs.watch(path.join(main_dirname,"data"),function(eventType, filename){
-    print(eventType+":"+filename);
+chokidar.watch(path.join(main_dirname,"data")).on('all', (event, path) => {
+  print(event+":"+path);
 });

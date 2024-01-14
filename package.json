@@ -10,6 +10,7 @@
   "author": "heyManNice",
   "license": "BSD 3-Clause",
   "dependencies": {
+    "chokidar": "^3.5.3",
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5"
   }
