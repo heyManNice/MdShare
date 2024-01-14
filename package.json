@@ -1,0 +1,12 @@
+{
+  "name": "mdshare",
+  "version": "1.0.0",
+  "description": "一个文字内容分享的站点",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "HeyManNice",
+  "license": "BSD 3-Clause"
+}
