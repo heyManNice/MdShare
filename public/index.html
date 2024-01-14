@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <H1>Hello World</H1>
+</body>
+<script>
+    sleep = function(ms){
+        return new Promise(( resolve, reject ) => {
+            setTimeout(function(){
+                resolve(ms);
+            },ms)
+        });
+    }
+    onload = function(){
+        console.log("onloaded");
+    }
+    myfunction = {
+        test:function(){
+            console.log("test");
+        }
+    };
+    get_newfunc = async function(func_name){
+        console.log("newfunc:"+func_name);
+        await sleep(1000);
+        return function(){
+            console.log("this is new function");
+        }
+    }
+
+    run = async function(func){
+        let thisfunc = window.myfunction[func] || await get_newfunc(func);
+        thisfunc();
+    }
+</script>
+</html>

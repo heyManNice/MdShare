@@ -1,16 +1,21 @@
-const express = require('express');
+const server = require('express')();
+const path = require('path');
+const rateLimit= require('express-rate-limit').rateLimit;
+
+const port = 8081;
 
 
-const app = express();
- 
-app.get('/', function (req, res) {
-   res.send('Hello World!');
+server.use(rateLimit({
+	windowMs:60 * 1000,
+	limit: 60,
+	standardHeaders: 'draft-7',
+	legacyHeaders: false,
+}))
+
+server.get('/', function (req, res) {
+   res.sendFile(path.join(__dirname,"public","index.html"));
 })
  
-var server = app.listen(8081, function () {
- 
-  let host = server.address().address
-  let port = server.address().port
- 
-  console.log("应用实例，访问地址为 http://%s:%s", host, port)
-});
+server.listen(port, () => {
+    console.log(`系统已运行在 ${port}`);
+})
