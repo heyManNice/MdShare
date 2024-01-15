@@ -3,9 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="./js/marked.min.js"></script>
+    <script type="text/javascript" src="./js/request.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <title>阅读器</title>
 </head>
 <body>
-    阅读器
 </body>
+<script>
+    MathJax = {
+        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    };
+    onload = async ()=>{
+        let filename = request.getUrlParams(decodeURI(location.href)).file;
+        let result = await request.sync_post("getMd",{filename:filename});
+        showMd(result.content);
+    }
+    showMd = function(mdtext){
+        console.log(mdtext);
+        document.querySelector("body").innerHTML=marked.parse(mdtext.replace('﻿',''));
+        MathJax.typeset();
+    }
+</script>
 </html>
