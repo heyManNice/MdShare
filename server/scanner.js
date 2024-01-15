@@ -22,7 +22,7 @@ scanner = {
             if(scanner.fileList[metadataArr[i].slice(0,-5)]){
                 continue;
             }
-            fs.unlinkSync(path.join(main_dirname,"metadata",metadataArr[i]));
+            fs.renameSync(path.join(main_dirname,"metadata",metadataArr[i]),path.join(main_dirname,"metaRecycle",metadataArr[i]));
         }
         for(var key in scanner.fileList){
             let filepath = path.join(main_dirname,"metadata",key+".json");
