@@ -17,6 +17,7 @@ chokidar.watch(path.join(main_dirname,"data")).on('all', (event, pathName) => {
       delete scanner.fileList[path.basename(pathName)];
       print("删除："+pathName);
       break;
+      
     default:
       clearTimeout(timer);
       timer = setTimeout(scanner.scan,100);

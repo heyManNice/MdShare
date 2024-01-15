@@ -16,7 +16,9 @@ loadServer('scanner');
 
 //路由
 server.get('/', pageRoute.index )
-server.get('/img/:filename', pageRoute.img )
+server.get('/test', pageRoute.test )
+server.get('/reader', pageRoute.reader )
+server.get('/:type/:filename', pageRoute.public )
 
 server.listen(port, () => {
     print(`系统已运行在 ${port}`);
