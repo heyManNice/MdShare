@@ -13,27 +13,27 @@ scanner = {
                 scanner.fileList[fileArr[j]] = {class:dirArr[i]};
             }
         }
-        print(JSON.stringify(scanner.fileList));
+        print("内存缓存："+JSON.stringify(scanner.fileList));
         scanner.flashMeta();
     },
     flashMeta:function(){
-        let metadataArr = fs.readdirSync(path.join(main_dirname,"metadata"));
-        for(var i = 0;i<metadataArr.length;i++){
-            if(scanner.fileList[metadataArr[i].slice(0,-5)]){
-                continue;
-            }
-            fs.renameSync(path.join(main_dirname,"metadata",metadataArr[i]),path.join(main_dirname,"metaRecycle",metadataArr[i]));
-        }
         for(var key in scanner.fileList){
             let filepath = path.join(main_dirname,"metadata",key+".json");
-            print(filepath);
             if(fs.existsSync(filepath)){
                 continue;
             }
-            let metaJson = {date:new Date().getTime (),class:scanner.fileList[key]["class"],look:0,like:0,comment:{}}
-            let fd = fs.openSync(filepath, "wx");
-            fs.writeSync(fd, JSON.stringify(metaJson), 0, 'utf8');
-            fs.closeSync(fd);
+            let metaJson = {ctime:new Date().getTime(),mtime:new Date().getTime(),class:scanner.fileList[key]["class"],look:0,like:0,comment:{}}
+            fs.writeFileSync(filepath,JSON.stringify(metaJson),{flag:"wx"})
         }
+    },
+    setFileMeta:function(filepath,obj){
+        if(!fs.existsSync(filepath) && Object.keys(obj).length != 0){
+            return 1;
+        }
+        let jsonData = JSON.parse(fs.readFileSync(filepath));
+        for(var key in obj){
+            jsonData[key] = obj[key];
+        }
+        fs.writeFileSync(filepath,JSON.stringify(jsonData));
     }
 }
