@@ -21,6 +21,8 @@ body,html{
         height: 55px;
         background-color: aquamarine;
         flex-shrink:0;
+        box-shadow: 0 0 5px var(--main-shadow-color);
+        z-index: 999;
     }
     main{
         flex-grow: 1;
@@ -38,10 +40,19 @@ body,html{
         padding: 10px;
         overflow-y: scroll;
         min-width: 600px;
+        box-shadow: 0 0 5px var(--main-shadow-color);
+        z-index: 800;
     }
     footer{
         background-color: azure;
         flex-grow: 1;
+    }
+    .md_title{
+        font-size: 3rem;
+    }
+    .md_info{
+        font-size: 0.8rem;
+        color: var(--main-subtext-color);
     }
 }
 
