@@ -1,4 +1,15 @@
-2333
-eee
-1
-2
+# Linux如何关机呢
+1. 测试1  
+2. 测试2  
+3. 测试3  
+
+$$f(x) \ne 0$$  
+
+| Syntax      | Description |
+| ----------- | ----------- |
+| Header      | Title       |
+| Paragraph   | Text        |
+
+- [x] 事件1  
+- [ ] 事件2  
+- [ ] 事件3
