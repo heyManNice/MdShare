@@ -33,19 +33,20 @@ body,html{
         background-color: beige;
         width: 200px;
         flex-shrink:0;
+        flex-grow: 0;
     }
     section{
         flex-grow: 2;
-        flex-shrink:0;
         padding: 10px;
         overflow-y: scroll;
-        min-width: 600px;
         box-shadow: 0 0 5px var(--main-shadow-color);
         z-index: 800;
+        flex-basis: 0;
     }
     footer{
         background-color: azure;
         flex-grow: 1;
+        padding: 10px;
     }
     .md_title{
         font-size: 3rem;
