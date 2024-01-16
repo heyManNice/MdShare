@@ -21,7 +21,6 @@
         showMd(result.content);
     }
     showMd = function(mdtext){
-        console.log(mdtext);
         document.querySelector("body").innerHTML=marked.parse(mdtext.replace('﻿',''));
         MathJax.typeset();
     }

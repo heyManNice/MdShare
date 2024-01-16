@@ -34,5 +34,11 @@ scanner = {
             jsonData[key] = obj[key];
         }
         fs.writeFileSync(filepath,JSON.stringify(jsonData));
+    },
+    getFileMeta:function(filepath){
+        if(!fs.existsSync(filepath)){
+            return {code:1};
+        }
+        return JSON.parse(fs.readFileSync(filepath));
     }
 }

@@ -2,9 +2,11 @@ const path = require('path');
 const fs = require("fs");
 
 pageRoute = {
+    //主页文件
     index:async function(req, res){
         return res.sendFile(path.join(main_dirname,"public","index.html"));
     },
+    //public文件
     public:async function(req, res){
         let types = ["img","css","js"];
         if(types.indexOf(req.params.type)===-1 || !req.params.filename){
@@ -18,12 +20,15 @@ pageRoute = {
         }
         return res.sendFile(filepath);
     },
+    //测试路径
     test:async function(req,res){
         return res.send(scanner.fileList);
     },
+    //阅读页面文件
     reader:async function(req,res){
         return res.sendFile(path.join(main_dirname,"public","reader.html"));
     },
+    //获取md文件api
     getMd:async function(req,res){
         if(!req.body.filename){
             res.status(400);
@@ -35,6 +40,7 @@ pageRoute = {
         }
         let filepath = path.join(main_dirname,"data",scanner.fileList[req.body.filename].class,req.body.filename);
         let content = fs.readFileSync(filepath);
-        return res.send({code:200,content:content.toString()});
+        let metadata = scanner.getFileMeta(path.join(main_dirname,"metadata",req.body.filename+".json"));
+        return res.send({code:200,content:content.toString(),metadata:metadata});
     }
 }
