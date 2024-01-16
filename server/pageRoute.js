@@ -41,6 +41,9 @@ pageRoute = {
         let filepath = path.join(main_dirname,"data",scanner.fileList[req.body.filename].class,req.body.filename);
         let content = fs.readFileSync(filepath);
         let metadata = scanner.getFileMeta(path.join(main_dirname,"metadata",req.body.filename+".json"));
+        if(metadata.comment){
+            delete metadata.comment;
+        }
         return res.send({code:200,content:content.toString(),metadata:metadata});
     }
 }
