@@ -11,6 +11,12 @@
     <title>阅读器</title>
 </head>
 <body>
+    <nav>导航</nav>
+    <main>
+        <header>目录</header>
+        <section class="print-element"></section>
+        <footer>评论区</footer>
+    </main>
 </body>
 <script>
     MathJax = {
@@ -18,11 +24,12 @@
     };
     onload = async ()=>{
         let filename = request.getUrlParams(decodeURI(location.href)).file;
-        let result = await request.sync_post("getMd",{filename:filename});
+        document.title = filename;
+        let result = await request.sync_post("getMd",{filename:filename+".md"});
         showMd(result.content);
     }
     showMd = function(mdtext){
-        document.querySelector("body").innerHTML=marked.parse(mdtext.replace('﻿',''));
+        document.querySelector("section").innerHTML=marked.parse(mdtext.replace('﻿',''));
         MathJax.typeset();
     }
 </script>

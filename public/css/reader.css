@@ -1,3 +1,42 @@
+body,html{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
 body{
-    background-color: var(--main-em-color);
+    background-color: var(--main-bg-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+@media print {
+    :has(.print-element) > :not(.print-element):not(:has(.print-element)) {
+      display: none;
+    }
+  }
+nav{
+    height: 55px;
+    background-color: aquamarine;
+    flex-shrink:0;
+}
+main{
+    flex-grow: 1;
+    display: flex;
+    min-height: 0;
+}
+header{
+    background-color: beige;
+    width: 200px;
+    flex-shrink:0;
+}
+section{
+    flex-grow: 2;
+    flex-shrink:0;
+    padding: 10px;
+    overflow-y: scroll;
+    min-width: 600px;
+}
+footer{
+    background-color: azure;
+    flex-grow: 1;
 }
