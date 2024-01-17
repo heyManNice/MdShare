@@ -32,9 +32,13 @@
     </main>
 </body>
 <script>
+    config = {
+        directory:[]
+    }
     onload = async ()=>{
         let filename = request.getUrlParams(decodeURI(location.href)).file;
         document.title = filename;
+        config.title = filename;
         document.querySelector(".md_title").innerHTML = filename;
         let result = await request.sync_post("getMd",{filename:filename+".md"});
         document.querySelector(".md_info").innerHTML = `创建日期:${FnewDate(result.metadata.ctime)} 阅读量:${result.metadata.look+1} 收藏量:${result.metadata.like} 修改时间:${FnewDate(result.metadata.mtime)}`;
@@ -85,18 +89,23 @@
             }else{
                 Num[bit-1]++;
             }
-            let orderString = "";
-            let pString = "";
-            for(var j=0;j<Num.length;j++){
-                orderString += orderString ? "."+Num[j] : Num[j];
-                pString += pString? "_"+Num[j] : Num[j];
-            }
-            emList[i].innerHTML = orderString+"、"+emList[i].innerHTML;
-            emList[i].setAttribute("id","p"+pString);
-            console.log(orderString+"、");
+            let pText = Num.join(".")+"、"+emList[i].innerHTML;
+            emList[i].innerHTML = pText;
+            let pString = "p"+Num.join("_");
+            emList[i].setAttribute("id",pString);
+            config.directory.push({anchor:pString,text:pText});
+            setDirectory(config.directory);
         }
     }
-    scrollTo = function(idName){
+    setDirectory = function(data){
+        let dirEm = document.querySelector("header");
+        let content = "<div>目录</div>";
+        for(var i=0;i<data.length;i++){
+            content += `<div onclick = "pScrollTo('#${data[i].anchor}')" data-type="${'p_h'+(data[i].anchor.length)/2}" data-anchor="${data[i].anchor}">${data[i].text}</div>`
+        }
+        dirEm.innerHTML = content;
+    }
+    pScrollTo = function(idName){
         document.querySelector(idName).scrollIntoView({behavior:"smooth"});
     }
 </script>
