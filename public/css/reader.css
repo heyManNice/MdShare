@@ -65,6 +65,21 @@ body,html{
         padding-left: 30px;
         font-size: 0.8rem;
     }
+    header .p_h4{
+        color: var(--main-subtext-color);
+        padding-left: 40px;
+        font-size: 0.7rem;
+    }
+    header .p_h5{
+        color: var(--main-subtext-color);
+        padding-left: 50px;
+        font-size: 0.6rem;
+    }
+    header .p_h6{
+        color: var(--main-subtext-color);
+        padding-left: 60px;
+        font-size: 0.5rem;
+    }
     section{
         flex-grow: 2;
         padding: 10px;

@@ -8,8 +8,16 @@ onload = async ()=>{
     document.querySelector(".md_title").innerHTML = filename;
     document.querySelector(".dir_title").innerHTML = filename;
     let result = await request.sync_post("getMd",{filename:filename+".md"});
-    document.querySelector(".md_info").innerHTML = `创建日期:${FnewDate(result.metadata.ctime)} 阅读量:${result.metadata.look+1} 收藏量:${result.metadata.like} 修改日期:${FnewDate(result.metadata.mtime)}`;
-    showMd(result.content);
+    switch (result.code) {
+        case 200:
+            document.querySelector(".md_info").innerHTML = `创建：${FnewDate(result.metadata.ctime)} &nbsp;&nbsp;浏览：${result.metadata.look+1} &nbsp;&nbsp;收藏：${result.metadata.like} &nbsp;&nbsp;修改：${FnewDate(result.metadata.mtime)}`;
+            showMd(result.content);
+            break;
+    
+        default:
+            console.log("请求失败");
+            break;
+    }
 }
 showMd = function(mdtext){
     document.querySelector(".article").innerHTML=marked.parse(mdtext.replace('﻿',''));
