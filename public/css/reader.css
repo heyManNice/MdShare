@@ -29,6 +29,9 @@ body,html{
         justify-content: space-between;
         align-items: center;
     }
+    nav .logo{
+        font-size: 1.5rem;
+    }
     .nav-tiem{
         margin-right: 0;
     }

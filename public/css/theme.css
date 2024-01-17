@@ -1,6 +1,6 @@
 :root{
     --main-bg-color: white;
-    --main-em-color: green;
+    --main-em-color: rgb(9, 202, 255);
     --main-subtext-color:rgb(94,94,94);
     --main-shadow-color:rgba(0,0,0,0.3);
 }

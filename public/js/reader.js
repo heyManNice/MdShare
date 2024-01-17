@@ -6,8 +6,9 @@ onload = async ()=>{
     document.title = filename;
     config.title = filename;
     document.querySelector(".md_title").innerHTML = filename;
+    document.querySelector(".dir_title").innerHTML = filename;
     let result = await request.sync_post("getMd",{filename:filename+".md"});
-    document.querySelector(".md_info").innerHTML = `创建日期:${FnewDate(result.metadata.ctime)} 阅读量:${result.metadata.look+1} 收藏量:${result.metadata.like} 修改时间:${FnewDate(result.metadata.mtime)}`;
+    document.querySelector(".md_info").innerHTML = `创建日期:${FnewDate(result.metadata.ctime)} 阅读量:${result.metadata.look+1} 收藏量:${result.metadata.like} 修改日期:${FnewDate(result.metadata.mtime)}`;
     showMd(result.content);
 }
 showMd = function(mdtext){
@@ -60,16 +61,16 @@ setTitleNum = function(emName){
         let pString = "p"+Num.join("_");
         emList[i].setAttribute("id",pString);
         config.directory.push({anchor:pString,text:pText});
-        setDirectory(config.directory);
     }
+    setDirectory(config.directory);
 }
 setDirectory = function(data){
     let dirEm = document.querySelector("header");
-    let content = "<div>目录</div>";
+    let content = "";
     for(var i=0;i<data.length;i++){
         content += `<div onclick = "pScrollTo('#${data[i].anchor}')" data-type="${'p_h'+(data[i].anchor.length)/2}" data-anchor="${data[i].anchor}">${data[i].text}</div>`
     }
-    dirEm.innerHTML = content;
+    dirEm.innerHTML += content;
 }
 pScrollTo = function(idName){
     document.querySelector(idName).scrollIntoView({behavior:"smooth"});

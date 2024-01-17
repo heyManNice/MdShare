@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="./css/theme.css">
     <link rel="stylesheet" type="text/css" href="./css/reader.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+    <link rel="stylesheet" href="./css/all.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
     <script src="./js/reader.js"></script>
     <title>阅读器</title>
@@ -21,9 +22,16 @@
         </div>
     </nav>
     <main>
-        <header>目录</header>
+        <header>
+            <div class="dir_text">
+                <i class="fa fa-list" aria-hidden="true" /></i>
+                目录
+            </div>
+            <div onclick="pScrollTo('#md_title')" class="dir_title">加载中</div>
+        </header>
         <section>
-            <div class="md_title"></div>
+            <div id="md_title" class="md_title">
+            </div>
             <div class="md_info"></div>
             <div class="article print-element"></div>
         </section>

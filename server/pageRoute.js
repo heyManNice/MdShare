@@ -8,7 +8,7 @@ pageRoute = {
     },
     //public文件
     public:async function(req, res){
-        let types = ["img","css","js"];
+        let types = ["img","css","js","webfonts"];
         if(types.indexOf(req.params.type)===-1 || !req.params.filename){
             res.status(403);
             return res.send({code:403});
