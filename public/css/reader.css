@@ -44,10 +44,26 @@ body,html{
         width: 200px;
         flex-shrink:0;
         flex-grow: 0;
-        padding: 20px;
+        padding: 10px;
     }
     header div{
         cursor: pointer;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: 300ms;
+    }
+    header div:hover{
+        background-color: var(--main-card-color);
+    }
+    header .p_h2{
+        color: var(--main-subtext-color);
+        padding-left: 20px;
+        font-size: 0.9rem;
+    }
+    header .p_h3{
+        color: var(--main-subtext-color);
+        padding-left: 30px;
+        font-size: 0.8rem;
     }
     section{
         flex-grow: 2;

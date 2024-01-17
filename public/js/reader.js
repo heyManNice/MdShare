@@ -68,7 +68,7 @@ setDirectory = function(data){
     let dirEm = document.querySelector("header");
     let content = "";
     for(var i=0;i<data.length;i++){
-        content += `<div onclick = "pScrollTo('#${data[i].anchor}')" data-type="${'p_h'+(data[i].anchor.length)/2}" data-anchor="${data[i].anchor}">${data[i].text}</div>`
+        content += `<div onclick = "pScrollTo('#${data[i].anchor}')" class="${'p_h'+(data[i].anchor.length)/2}" data-anchor="${data[i].anchor}">${data[i].text}</div>`
     }
     dirEm.innerHTML += content;
 }
