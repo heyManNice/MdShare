@@ -32,9 +32,6 @@
     </main>
 </body>
 <script>
-    MathJax = {
-        tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    };
     onload = async ()=>{
         let filename = request.getUrlParams(decodeURI(location.href)).file;
         document.title = filename;
@@ -47,6 +44,7 @@
         document.querySelector(".article").innerHTML=marked.parse(mdtext.replace('﻿',''));
         MathJax.typeset([".article"]);
         hljs.highlightAll();
+        setTitleNum(".article");
     }
     FnewDate=function (time) {
         function padZero(num) {
@@ -71,6 +69,35 @@
             min + ':' +
             sec;
         return newTime;
+    }
+    setTitleNum = function(emName){
+        let emList = document.querySelector(emName).children;
+        let Num = [];
+        for(var i=0;i<emList.length;i++){
+            let tagName = emList[i].tagName;
+            if(tagName.length != 2 || tagName.slice(0,1) != "H"){
+                continue;
+            }
+            let bit = tagName.slice(1,2);
+            Num = Num.splice(0,bit);
+            if(Num[bit-1]===undefined){
+                Num[bit-1] = 1;
+            }else{
+                Num[bit-1]++;
+            }
+            let orderString = "";
+            let pString = "";
+            for(var j=0;j<Num.length;j++){
+                orderString += orderString ? "."+Num[j] : Num[j];
+                pString += pString? "_"+Num[j] : Num[j];
+            }
+            emList[i].innerHTML = orderString+"、"+emList[i].innerHTML;
+            emList[i].setAttribute("id","p"+pString);
+            console.log(orderString+"、");
+        }
+    }
+    scrollTo = function(idName){
+        document.querySelector(idName).scrollIntoView({behavior:"smooth"});
     }
 </script>
 </html>

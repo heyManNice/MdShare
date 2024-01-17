@@ -3,6 +3,7 @@
 2. 测试2  
 3. 测试3  
 
+## python程序  
 ```python
 #!/usr/bin/env python3
 print("Hello, World!");
@@ -10,13 +11,14 @@ def test():
     a = 1 + 1
     return a
 ```
-
-$$f(x) \ne 0$$  
-
+## 表格  
 | Syntax      | Description |
 | ----------- | ----------- |
 | Header      | Title       |
 | Paragraph   | Text        |
+### 公式  
+
+$$f(x) \ne 0$$  
 
 - [x] 事件1  
 - [ ] 事件2  
