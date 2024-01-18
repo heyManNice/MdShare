@@ -54,7 +54,7 @@ setTitleNum = function(emName){
     let Num = [];
     for(var i=0;i<emList.length;i++){
         let tagName = emList[i].tagName;
-        if(tagName.length != 2 || tagName.slice(0,1) != "H"){
+        if(tagName.length != 2 || tagName.slice(0,1) != "H" || isNaN(Number(tagName.slice(1,2)))){
             continue;
         }
         let bit = tagName.slice(1,2);
