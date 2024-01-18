@@ -3,3 +3,4 @@ data/*
 metadata/*
 metaRecycle/*
 .DS_Store
+config.js

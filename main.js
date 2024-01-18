@@ -1,5 +1,6 @@
 //加载基础初始化服务
 require('./server/init.js');
+require('./config.js');
 main_dirname = __dirname;
 
 const server = require('express')();
@@ -8,7 +9,7 @@ const bodyParser = require('body-parser');
 const port = 8081;
 
 //访问限制
-server.use(rateLimit({windowMs:60 * 1000, limit: 60, standardHeaders: 'draft-7', legacyHeaders: false,}));
+server.use(rateLimit({windowMs:config.rateLimit.time * 60 * 1000, limit: config.rateLimit.limit, standardHeaders: 'draft-7', legacyHeaders: false,}));
 
 server.use(bodyParser.json());
 
