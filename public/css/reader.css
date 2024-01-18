@@ -51,9 +51,19 @@ body,html{
         padding: 5px 10px;
         border-radius: 5px;
         transition: 300ms;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-break: break-all;
+        white-space: nowrap;
     }
     header div:hover{
         background-color: var(--main-card-color);
+    }
+    header .dir_text{
+        cursor: auto;
+    }
+    header .dir_text:hover{
+        background-color: var(--main-bg-color);
     }
     header .p_h2{
         color: var(--main-subtext-color);
@@ -82,11 +92,12 @@ body,html{
     }
     section{
         flex-grow: 2;
-        padding: 10px;
+        padding: 10px 20px;
         overflow-y: scroll;
         box-shadow: 0 0 5px var(--main-shadow-color);
         z-index: 800;
         flex-basis: 0;
+        cursor: text;
     }
     footer{
         flex-grow: 1;
@@ -100,7 +111,36 @@ body,html{
         font-size: 0.8rem;
         color: var(--main-subtext-color);
     }
-    
+    h1,h2{
+        margin-bottom: 10px;
+    }
+    h1:hover,h2:hover{
+        border-left: 4px solid var(--main-subtext-color);
+        margin-left: -10px;
+        padding-left: 6px;
+    }
+    p{
+        text-indent: 2rem;
+    }
+    p:hover,h3:hover,h4:hover,h5:hover,h6:hover{
+        border-left: 2px solid var(--main-subtext-color);
+        margin-left: -8px;
+        padding-left: 6px;
+    }
+    p code{
+        color: var(--main-row-code-color);
+        background-color: var(--main-bg-code-color);
+        border-radius: 2px;
+        padding: 3px;
+    }
+
+    hr{
+        color: var(--main-shadow-color);
+    }
+    .article>pre>code{
+        border: 1px solid var(--main-shadow-color);
+        border-radius: 4px;
+    }
 }
 
 @media screen and (max-width: 768px){
