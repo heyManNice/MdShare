@@ -2,6 +2,8 @@ config = {
     directory:[]
 }
 onload = async ()=>{
+    document.removeEventListener('error',loadError,true);
+    document.querySelector("#base_js").remove();
     let filename = request.getUrlParams(decodeURI(location.href)).file;
     document.title = filename;
     config.title = filename;
@@ -13,7 +15,10 @@ onload = async ()=>{
             document.querySelector(".md_info").innerHTML = `创建：${FnewDate(result.metadata.ctime)} &nbsp;&nbsp;浏览：${result.metadata.look+1} &nbsp;&nbsp;收藏：${result.metadata.like} &nbsp;&nbsp;修改：${FnewDate(result.metadata.mtime)}`;
             showMd(result.content);
             break;
-    
+        case 429:
+            console.log("过多请求");
+            document.querySelector(".article").innerHTML = "请求次数过多，请稍后重试";
+            break;
         default:
             console.log("请求失败");
             break;

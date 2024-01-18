@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const port = 8081;
 
 //访问限制
-server.use(rateLimit({windowMs:config.rateLimit.time * 60 * 1000, limit: config.rateLimit.limit, standardHeaders: 'draft-7', legacyHeaders: false,}));
+server.use(rateLimit({windowMs:config.rateLimit.time * 60 * 1000, limit: config.rateLimit.limit, standardHeaders: 'draft-7', legacyHeaders: false,message: {code:429,msg:"请求次数过多，请稍后再试"}}));
 
 server.use(bodyParser.json());
 
