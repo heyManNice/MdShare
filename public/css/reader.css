@@ -119,9 +119,6 @@ body,html{
         margin-left: -10px;
         padding-left: 6px;
     }
-    p{
-        text-indent: 2rem;
-    }
     p:hover,h3:hover,h4:hover,h5:hover,h6:hover{
         border-left: 2px solid var(--main-subtext-color);
         margin-left: -8px;
@@ -140,6 +137,7 @@ body,html{
     .article>pre>code{
         border: 1px solid var(--main-shadow-color);
         border-radius: 4px;
+        font-size: 1rem;
     }
 }
 
@@ -147,4 +145,42 @@ body,html{
     nav,header{
         display: none;
     }
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table caption{
+    font-size: 2em;
+    font-weight: bold;
+    margin: 1em 0;
+}
+
+th,td{
+    border: 1px solid var(--main-subtext-color);
+    text-align: center;
+    padding: 8px 0;
+}
+
+table thead tr{
+    background-color: var(--main-tr-color);
+}
+
+table tbody tr:nth-child(even){
+    background-color: var(--mian-td-even);
+}
+
+table tbody tr:hover{
+    
+}
+
+table tbody tr td:first-child{
+    
+}
+
+table tfoot tr td{
+    text-align: right;
+    padding-right: 20px;
 }
