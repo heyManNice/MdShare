@@ -17,6 +17,7 @@ server.use(bodyParser.json());
 loadServer('pageRoute');
 loadServer('watchFile');
 loadServer('scanner');
+loadServer('sql');
 
 //路由
 server.get('/', pageRoute.index )
