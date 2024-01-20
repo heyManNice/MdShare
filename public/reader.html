@@ -42,14 +42,14 @@
                 em.value = "";
             }
         }
-        countdown = async function(){
-            let em = document.querySelector("#timer_s");
+        countdown = async function(em_id){
+            let em = document.querySelector(em_id);
             if(em.innerHTML<=0){
                 location.reload()
             }else{
                 await sleep(1000);
                 em.innerHTML--;
-                countdown();
+                countdown(em_id);
             }
         }
         loadError = function(e){
@@ -93,7 +93,7 @@
                 await sleep(500);
                 em.innerHTML+=`<p>请求次数过多，<span id="timer_s">60</span>秒后自动重试。输入flash手动刷新页面</p>`;
                 document.querySelector("#input_cmd").innerHTML=`<span style="color: #0DAE0D;">root@debian:/home#</span> <input autofocus="true" style="background-color: black;color: white;outline: none;border: none;font-size: 1rem;padding: 0;" onkeydown="runCmd(event,this)" type="text">`;
-                countdown();
+                countdown("#timer_s");
             }
         }
         document.addEventListener('error',loadError,true);
