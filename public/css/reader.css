@@ -137,7 +137,6 @@ body,html{
     .article>pre>code{
         border: 1px solid var(--main-shadow-color);
         border-radius: 4px;
-        font-size: 1rem;
     }
 }
 
