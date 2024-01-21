@@ -93,6 +93,7 @@ setTitleNum = function(emName){
         emList[i].innerHTML = pText;
     }
     setDirectory(config.directory);
+    observTitle(config.directory);
 }
 setDirectory = function(data){
     let dirEm = document.querySelector("header");
@@ -104,4 +105,27 @@ setDirectory = function(data){
 }
 pScrollTo = function(idName){
     document.querySelector(idName).scrollIntoView({behavior:"smooth"});
+}
+activeEm = function(em){
+    let oldActive = document.querySelector("header .active");
+    if(oldActive){
+        oldActive.classList.remove("active");
+    }
+    em.classList.add("active");
+}
+observTitle = function(directory){
+    if(window.innerWidth<768){
+        return;
+    }
+    let options = {rootMargin:`0px 0px -${document.querySelector("section").clientHeight-32}px 0px`}
+    let observer = new IntersectionObserver(function(e){
+        if(!e[0].isIntersecting){
+            return;
+        }
+        let active = document.querySelector(`header div[data-anchor=${e[0].target.id}]`)
+        activeEm(active);
+    },options);
+    for(var i=0;i<directory.length;i++){
+        observer.observe(document.querySelector("#"+directory[i].anchor));
+    }
 }
