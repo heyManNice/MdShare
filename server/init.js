@@ -30,7 +30,7 @@ FnewDate=function (time) {
         min = padZero(date.getMinutes()),
         sec = padZero(date.getSeconds());
     var newTime =
-        //year + '-' +
+        year + '-' +
         month + '-' +
         day + ' ' +
         hour + ':' +

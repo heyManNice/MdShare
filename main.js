@@ -18,6 +18,7 @@ loadServer('pageRoute');
 loadServer('watchFile');
 loadServer('scanner');
 loadServer('sql');
+loadServer('sweet');
 
 //路由
 server.get('/', pageRoute.index )

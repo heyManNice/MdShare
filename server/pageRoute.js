@@ -26,8 +26,11 @@ pageRoute = {
     },
     //阅读页面文件
     reader:async function(req,res){
-        if(sql.isDanger(req.query)){
-            return res.send(`<script>location.href = "https://www.bilibili.com/video/BV1hq4y1s7VH"</script>`);
+        if(config.sweet.enable){
+            if(sql.isDanger(req.query)){
+                sweet.log(req,"在阅读器页面SQL注入");
+                return res.send(config.sweet.response);
+            }
         }
         return res.sendFile(path.join(main_dirname,"public","reader.html"));
     },

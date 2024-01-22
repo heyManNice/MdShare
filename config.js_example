@@ -5,5 +5,14 @@ config = {
         time:1,
         //同一个IP访问在规定时间内访问次数达到以下值将阻止访问
         limit:60
+    },
+    //为攻击者返回一些有趣的页面
+    sweet:{
+        //启用
+        enable:true,
+        //记录下攻击的日志
+        log:true,
+        //攻击者成功攻击时返回的信息
+        response:`<script>location.href = "https://www.bilibili.com/video/BV1hq4y1s7VH"</script>`
     }
 }
