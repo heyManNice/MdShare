@@ -16,6 +16,7 @@ body,html{
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        color: var(--main-text-color);
     }
     nav{
         padding-left: 20px;
@@ -66,6 +67,7 @@ body,html{
     }
     header .dir_text:hover{
         background-color: var(--main-bg-color);
+        color: var(--main-text-color);
     }
     header .p_h2{
         color: var(--main-subtext-color);
