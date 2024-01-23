@@ -146,12 +146,24 @@ body,html{
         border: 1px solid var(--main-shadow-color);
         border-radius: 4px;
     }
-
+    .CtxtMenu_MenuFrame{
+        z-index: 99999 !important;
+    }
 }
 
 @media screen and (max-width: 768px){
     nav,header{
         display: none;
+    }
+    body{
+        padding: 10px;
+    }
+    .md_title{
+        font-size: 3rem;
+    }
+    .md_info{
+        font-size: 0.8rem;
+        color: var(--main-subtext-color);
     }
 }
 
