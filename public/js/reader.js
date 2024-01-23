@@ -11,7 +11,7 @@ onload = async ()=>{
     let em_dir_title = document.querySelector(".dir_title");
     em_dir_title.innerHTML= filename;
     em_dir_title.setAttribute("title",filename)
-    let result = await request.sync_post("getMd",{filename:filename+".md"});
+    let result = await request.sync_get(`md/${filename}.md`);
     switch (result.code) {
         case 200:
             document.querySelector(".md_info").innerHTML = `创建：${FnewDate(result.metadata.ctime)} &nbsp;&nbsp;浏览：${result.metadata.look+1} &nbsp;&nbsp;收藏：${result.metadata.like} &nbsp;&nbsp;修改：${FnewDate(result.metadata.mtime)}`;

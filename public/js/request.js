@@ -23,10 +23,10 @@ request={
         xhr.send(JSON.stringify(json));
     },
     get: function (route) {
-        var xhr = new XMLHttpRequest();
+        let xhr = new XMLHttpRequest();
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                var newJson = JSON.parse(this.responseText);
+                let newJson = JSON.parse(this.responseText);
                 if (newJson['callback']) {
                     for(let i=0;i<newJson['callback'];i++){
                         newJson['callback'][i]();
@@ -55,6 +55,25 @@ request={
             xhr.open("POST", "./api/" + route);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(JSON.stringify(json));
+        });
+    },
+    sync_get: function(route){
+        return new Promise(( resolve, reject ) => {
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    let newJson;
+                    try{
+                        newJson = JSON.parse(this.responseText);
+                    }catch{
+                        resolve({code:0,msg:"未知错误，请联系管理员"});
+                        return
+                    }
+                    resolve(newJson);
+                }
+            });
+            xhr.open("GET", "./api/" + route);
+            xhr.send();
         });
     },
     cookieToJson:function () {

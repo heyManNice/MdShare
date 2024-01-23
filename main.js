@@ -27,7 +27,8 @@ server.get('/test', pageRoute.test );
 server.get('/reader', pageRoute.reader );
 server.get('/:type/:filename', pageRoute.public );
 
-server.post('/api/getMd', pageRoute.getMd );
+//api
+server.get('/api/md/:filename', pageRoute.getMd );
 
 //为攻击者开发的路由
 if(config.sweet.enable){

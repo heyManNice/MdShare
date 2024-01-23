@@ -36,17 +36,17 @@ pageRoute = {
     },
     //获取md文件api
     getMd:async function(req,res){
-        if(!req.body.filename){
+        if(!req.params.filename){
             res.status(400);
             return res.send({code:400});
         }
-        if(!scanner.fileList[req.body.filename]){
+        if(!scanner.fileList[req.params.filename]){
             res.status(404);
             return res.send({code:404});
         }
-        let filepath = path.join(main_dirname,"data",scanner.fileList[req.body.filename].class,req.body.filename);
+        let filepath = path.join(main_dirname,"data",scanner.fileList[req.params.filename].class,req.params.filename);
         let content = fs.readFileSync(filepath);
-        let metadata = scanner.getFileMeta(path.join(main_dirname,"metadata",req.body.filename+".json"));
+        let metadata = scanner.getFileMeta(path.join(main_dirname,"metadata",req.params.filename+".json"));
         if(metadata.comment){
             delete metadata.comment;
         }
