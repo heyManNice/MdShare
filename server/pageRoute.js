@@ -73,6 +73,6 @@ pageRoute = {
         sweet.log(req,sweet.login_try+"次尝试登陆并且成功");
         let text = `经过${sweet.login_try}次尝试，你攻破了本站的弱密码！<script>window.history.replaceState(null, null, window.location.href);</script>`;
         sweet.login_try = 1;
-        return res.send(config.sweet.response);
+        return res.send(`恭喜你！经过${sweet.login_try}次尝试，攻破了本站的管理员弱密码`+config.sweet.response);
     }
 }
