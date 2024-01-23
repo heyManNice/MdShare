@@ -30,5 +30,7 @@ sweet = {
         }
         ip = ip.substr(ip.lastIndexOf(':')+1,ip.length);
         return ip
-    }
+    },
+    login_try:1,
+    timer:undefined
 }

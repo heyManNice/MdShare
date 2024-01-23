@@ -12,6 +12,7 @@ const port = 8081;
 server.use(rateLimit({windowMs:config.rateLimit.time * 60 * 1000, limit: config.rateLimit.limit, standardHeaders: 'draft-7', legacyHeaders: false,message: {code:429,msg:"请求次数过多，请稍后再试"}}));
 
 server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: false }));
 
 //加载服务组件
 loadServer('pageRoute');
@@ -21,12 +22,18 @@ loadServer('sql');
 loadServer('sweet');
 
 //路由
-server.get('/', pageRoute.index )
-server.get('/test', pageRoute.test )
-server.get('/reader', pageRoute.reader )
-server.get('/:type/:filename', pageRoute.public )
+server.get('/', pageRoute.index );
+server.get('/test', pageRoute.test );
+server.get('/reader', pageRoute.reader );
+server.get('/:type/:filename', pageRoute.public );
 
-server.post('/api/getMd', pageRoute.getMd )
+server.post('/api/getMd', pageRoute.getMd );
+
+//为攻击者开发的路由
+if(config.sweet.enable){
+    server.get('/admin', pageRoute.admin );
+    server.post('/admin', pageRoute.admin_post );
+}
 
 server.listen(port, () => {
     print(`系统已运行在 ${port}`);
