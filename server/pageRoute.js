@@ -71,5 +71,22 @@ pageRoute = {
         let text = `恭喜你！经过${sweet.login_try}次尝试，攻破了本站的管理员弱密码`+config.sweet.response;
         sweet.login_try = 1;
         return res.send(text);
+    },
+    latex:{
+        js:async function(req,res){
+            return res.sendFile(path.join(main_dirname,"public","latex","tex-chtml.js"));
+        },
+        font:async function(req,res){
+            if(!req.params.font){
+                res.status(403);
+                return res.send({code:403});
+            }
+            let filepath = path.join(main_dirname,"public","latex",req.params.font);
+            if(!fs.existsSync(filepath)){
+                res.status(404);
+                return res.send({code:404});
+            }
+            return res.sendFile(filepath);
+        }
     }
 }
