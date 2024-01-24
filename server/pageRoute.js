@@ -4,7 +4,7 @@ const fs = require("fs");
 pageRoute = {
     //主页文件
     index:async function(req, res){
-        return res.sendFile(path.join(main_dirname,"public","index.html"));
+        return res.sendFile(path.join(main_dirname,"build","index.html"));
     },
     //favicon图标
     favicon:async function(req, res){
@@ -36,7 +36,7 @@ pageRoute = {
                 return res.send(config.sweet.response);
             }
         }
-        return res.sendFile(path.join(main_dirname,"public","reader.html"));
+        return res.sendFile(path.join(main_dirname,"build","reader.html"));
     },
     //获取md文件api
     getMd:async function(req,res){

@@ -5,3 +5,4 @@ metaRecycle/*
 .DS_Store
 config.js
 log/*
+build/*

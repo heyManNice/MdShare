@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html lang="zh_CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/theme.css">
-    <link rel="stylesheet" href="./css/index.css">
-    <title>MDshare</title>
-    <script>
-
-    </script>
-</head>
-<body>
-    <nav>
-        <div class="logo">MDShare</div>
-        <div class="nav-tiem">
-            <div>首页</div>
-        </div>
-    </nav>
-    <main>
-        <header>
-            <div class="dir_text">
-                <i class="fa fa-list" aria-hidden="true" /></i>
-                分类
-            </div>
-            <div>加载中</div>
-        </header>
-        <section>
-            
-        </section>
-        <footer>
-            评论区
-        </footer>
-    </main>
-</body>
+<script build>
+    //标题
+    build.use({title:"share"});
+    //js部分
+    build.use({js:"./js/base.js"});
+    build.use({js:"./js/request.js",link:true});
+    //css部分
+    build.use({css:"./css/theme.css",link:true});
+    build.use({css:"./css/index.css",link:true});
+    build.use({css:"./css/vs.min.css",link:true});
+    build.use({css:"./css/all.min.css",link:true});
+</script>
+<html>
+    <nav build="./html/nav.html"></nav>
+    <main build="./html/index.html"></main>
 </html>

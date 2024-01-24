@@ -31,9 +31,8 @@ server.get('/:type/:filename', pageRoute.public );
 //api
 server.get('/api/md/:filename', pageRoute.getMd );
 
-//为latex插件的独立路由
-server.get('/latex/texc/tex-chtml.js', pageRoute.latex.js );
-server.get('/latex/texc/output/chtml/fonts/woff-v2/:font', pageRoute.latex.font );
+//为latex字体的独立路由
+server.get('/js/output/chtml/fonts/woff-v2/:font', pageRoute.latex.font );
 
 //为攻击者开发的路由
 if(config.sweet.enable){

@@ -3,7 +3,7 @@ config = {
 }
 onload = async ()=>{
     document.removeEventListener('error',loadError,true);
-    document.querySelector("#base_js").remove();
+    //document.querySelector("#base_js").remove();
     let filename = request.getUrlParams(decodeURI(location.href)).file;
     document.title = filename;
     config.title = filename;
