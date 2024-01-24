@@ -18,24 +18,6 @@ body,html{
         overflow: hidden;
         color: var(--main-text-color);
     }
-    nav{
-        padding-left: 20px;
-        padding-right: 20px;
-        height: 55px;
-        flex-shrink:0;
-        box-shadow: 0 0 5px var(--main-shadow-color);
-        z-index: 999;
-        background-color: var(--main-bg-color);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    nav .logo{
-        font-size: 1.5rem;
-    }
-    .nav-tiem{
-        margin-right: 0;
-    }
     main{
         flex-grow: 1;
         display: flex;
@@ -152,7 +134,7 @@ body,html{
 }
 
 @media screen and (max-width: 768px){
-    nav,header{
+    header{
         display: none;
     }
     body{
