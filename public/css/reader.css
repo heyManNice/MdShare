@@ -108,7 +108,7 @@ body,html{
     }
     footer{
         flex-grow: 1;
-        padding: 20px;
+        padding: 10px;
         flex-basis: 0;
         overflow-y: scroll;
     }

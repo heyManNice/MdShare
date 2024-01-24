@@ -23,6 +23,7 @@ loadServer('sweet');
 
 //路由
 server.get('/', pageRoute.index );
+server.get('/favicon.ico', pageRoute.favicon);
 server.get('/test', pageRoute.test );
 server.get('/reader', pageRoute.reader );
 server.get('/:type/:filename', pageRoute.public );

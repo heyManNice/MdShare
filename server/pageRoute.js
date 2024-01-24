@@ -6,6 +6,10 @@ pageRoute = {
     index:async function(req, res){
         return res.sendFile(path.join(main_dirname,"public","index.html"));
     },
+    //favicon图标
+    favicon:async function(req, res){
+        return res.sendFile(path.join(main_dirname,"public","favicon.ico"));
+    },
     //public文件
     public:async function(req, res){
         let types = ["img","css","js","webfonts"];
