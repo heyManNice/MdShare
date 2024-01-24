@@ -18,6 +18,16 @@
         margin-right: 0;
         display: flex;
     }
+    .nav-tiem div{
+        margin: 5px;
+    }
+    .search i{
+        font-size: 0.75rem;
+    }
+    .search input{
+        outline: none;
+        border: none;
+    }
 }
 
 @media screen and (max-width: 768px){
