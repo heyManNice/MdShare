@@ -3,46 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./css/theme.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>MDshare</title>
     <script>
-        runCmd = function(e,em){
-            if(e.keyCode == 13){
-                let cmd = em.value.split(" ")[0]
-                document.querySelector("#cmd_div").innerHTML+=`<p><span style="color: #0DAE0D;">root@debian:/home#</span> ${em.value}</p><p>-bash: ${cmd}: command not found</p>`;
-                em.value = "";
-            }
-        }
+
     </script>
 </head>
 <body>
-    <p>Linux debian 6.1.0-10-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.38-1 (2023-07-14) x86_64</p><br>
-    <p>The programs included with the Debian GNU/Linux system are free software;</p>
-    <p>the exact distribution terms for each program are described in the</p>
-    <p>individual files in /usr/share/doc/*/copyright.</p><br>
-    <p>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</p>
-    <p>permitted by applicable law.</p>
-    <p>Last login: Sun Jan 14 21:50:08 2024 from 192.168.74.1</p>
-    <div id="fail_div">
-        <p><span style="color: #E74856;">Fail:</span> GET http://127.0.0.1:8081/reader?file=Linux如何关机 net::ERR_ABORTED 429 (Too Many Requests)</p>
-        <p>请求次数过多，<span id="timer_s">60</span>秒后自动重试。输入flash手动刷新页面</p>
-    </div>
-    <div id="cmd_div">
-    </div>
-    <p id="input_cmd"></p>
-    <p><span style="color: #0DAE0D;">root@debian:/home#</span> <input autofocus="true" style="background-color: black;color: white;outline: none;border: none;font-size: 1rem;padding: 0;margin: 0;" onkeydown="runCmd(event,this)" type="text"></p>
-    <style>
-        body,html{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            padding: 5px 5px;
-            background-color: black;
-            color: white;
-        }
-        p{
-            margin: 0px 0px 0px 0px;
-        }
-    </style>
+    <nav>
+        <div class="logo">MDShare</div>
+        <div class="nav-tiem">
+            <div>首页</div>
+        </div>
+    </nav>
+    <main>
+        <header>
+            <div class="dir_text">
+                <i class="fa fa-list" aria-hidden="true" /></i>
+                分类
+            </div>
+            <div>加载中</div>
+        </header>
+        <section>
+            
+        </section>
+        <footer>
+            评论区
+        </footer>
+    </main>
 </body>
 </html>

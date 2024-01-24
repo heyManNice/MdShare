@@ -1,0 +1,78 @@
+body,html{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body{
+    background-color: var(--main-bg-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--main-text-color);
+}
+nav{
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 55px;
+    flex-shrink:0;
+    box-shadow: 0 0 5px var(--main-shadow-color);
+    z-index: 999;
+    background-color: var(--main-bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+nav .logo{
+    font-size: 1.5rem;
+}
+.nav-tiem{
+    margin-right: 0;
+}
+main{
+    flex-grow: 1;
+    display: flex;
+    min-height: 0;
+}
+header{
+    width: 200px;
+    flex-shrink:0;
+    flex-grow: 0;
+    padding: 10px;
+    overflow-y: scroll;
+}
+header div{
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: 300ms;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+    white-space: nowrap;
+}
+header div:hover{
+    background-color: var(--main-card-color);
+    color: var(--main-theme-color);
+}
+
+header .active{
+    color: var(--main-theme-color);
+}
+section{
+    flex-grow: 2;
+    padding: 10px 20px;
+    overflow-y: scroll;
+    box-shadow: 0 0 5px var(--main-shadow-color);
+    z-index: 800;
+    flex-basis: 0;
+    cursor: text;
+}
+footer{
+    flex-grow: 1;
+    padding: 10px;
+    flex-basis: 0;
+    overflow-y: scroll;
+}
+
+
