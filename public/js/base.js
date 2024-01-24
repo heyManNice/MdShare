@@ -50,7 +50,6 @@ countdown = async function(em_id){
     }
 }
 loadError = function(e){
-    document.querySelector("#base_js").remove();
     let targets = ["LINK","SCRIPT"];
     document.removeEventListener('error',loadError,true);
     window.onload = async function(){
