@@ -1,7 +1,7 @@
-/*只用于对html文件的解析，讲天马行空的自定义语法解析为浏览器可执行的html文件
- *
- *
- * 
+/*用于解决html页面中不同页面使用相同的元素该如何处理的问题
+ *只用于对html文件的解析，将天马行空的自定义语法解析为浏览器可执行的html文件
+ *解析的文件来自./public目录下的html文件，解析结果在./build中
+ *使用到的js css等资源文件仍然在./public文件夹中，不需要转移到./build文件夹
 */
 const fs = require("fs");
 const path = require('path');
@@ -85,8 +85,8 @@ const build = {
     },
     makeFile:function(fileName){
         build.targetData = `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">`;
-        let text = build.read(path.join(__dirname,"public",fileName))
-        eval(build.getScript(text))
+        let text = build.read(path.join(__dirname,"public",fileName));
+        eval(build.getScript(text));
         let dom = build.getDom(text);
         build.targetData+=`</head><body>`;
         for(let key in dom.html){
