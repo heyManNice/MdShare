@@ -101,20 +101,20 @@ body,html{
         font-size: 0.8rem;
         color: var(--main-subtext-color);
     }
-    h1,h2{
+    .article h1,.article h2{
         margin-bottom: 10px;
     }
-    h1:hover,h2:hover{
+    .article h1:hover,.article h2:hover{
         border-left: 4px solid var(--main-theme-color);
         margin-left: -10px;
         padding-left: 6px;
     }
-    p:hover,h3:hover,h4:hover,h5:hover,h6:hover{
+    .article p:hover,.article h3:hover,.article h4:hover,.article h5:hover,.article h6:hover{
         border-left: 2px solid var(--main-theme-color);
         margin-left: -8px;
         padding-left: 6px;
     }
-    p code{
+    .article p code{
         color: var(--main-row-code-color);
         background-color: var(--main-bg-code-color);
         border-radius: 2px;
