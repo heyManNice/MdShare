@@ -3,7 +3,6 @@
  *解析的文件来自./public目录下的html文件，解析结果在./build中
  *使用到的js css等资源文件仍然在./public文件夹中，不需要转移到./build文件夹
 */
-const { log } = require("console");
 const fs = require("fs");
 const path = require('path');
 
@@ -76,9 +75,11 @@ const build = {
             let element = elements[i];
             let tagName = element.match(/(?<=<)[\s\S]*?(?= )/)[0];
             let filePath = element.match(/(?<=build=")[\s\S]*?(?=")/)[0];
+            let attribute = build.getAttribute(element);
             dom.html[tagName]={
                 tagName:tagName,
-                build:filePath
+                build:filePath,
+                attribute:attribute
             }
         }
         return dom;
@@ -88,16 +89,22 @@ const build = {
         while(1){
             let buildList = build.getElementAll(str);
             if(!buildList){
-                break
+                break;
             }
-            let tagName = buildList[0].match(/(?<=<)[\s\S]*?(?= )/)[0];
-            let filePath = buildList[0].match(/(?<=build=")[\s\S]*?(?=")/)[0];
+            let element = buildList[0];
+            let tagName = element.match(/(?<=<)[\s\S]*?(?= )/)[0];
+            let filePath = element.match(/(?<=build=")[\s\S]*?(?=")/)[0];
+            let attribute = build.getAttribute(element);
             console.log(`第${++cout}次迭代解析${tagName}:${filePath}`);
             let content = build.read(path.join(__dirname,"public","html",filePath));
-            let html = `<${tagName}>${content}</${tagName}>`;
-            str = str.replace(buildList[0],html);
+            let html = `<${tagName+" "+attribute}>${content}</${tagName}>`;
+            str = str.replace(element,html);
         }
         return str;
+    },
+    getAttribute:function(element){
+        let attribute = element.match(/(?<=^<.*? )[\s\S]*?(?=>)/)[0];
+        return attribute.replace(/build=".*?"/,"");
     },
     makeFile:function(fileName){
         build.targetData = `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">`;
@@ -108,7 +115,8 @@ const build = {
         for(let key in dom.html){
             let content = build.read(path.join(__dirname,"public",dom.html[key].build));
             content = build.loopAnalysis(content);
-            build.targetData+=`<${key}>${content}</${key}>\n`;
+            let attribute = dom.html[key].attribute;
+            build.targetData+=`<${key+" "+attribute}>${content}</${key}>\n`;
         }
         build.targetData+=`</body></html>`;
         build.write(fileName,build.targetData);

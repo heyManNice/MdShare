@@ -22,6 +22,10 @@
     .nav-tiem div{
         margin: 5px;
         cursor: pointer;
+        transition: 300ms;
+    }
+    .nav-tiem div:hover{
+        color: var(--main-subtext-color);
     }
     .search i{
         font-size: 0.75rem;
