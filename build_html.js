@@ -3,6 +3,7 @@
  *解析的文件来自./public目录下的html文件，解析结果在./build中
  *使用到的js css等资源文件仍然在./public文件夹中，不需要转移到./build文件夹
 */
+const { log } = require("console");
 const fs = require("fs");
 const path = require('path');
 
@@ -59,16 +60,15 @@ const build = {
         let reg = /(?<=<script build>)[\s\S]*?(?=<\/script>)/g;
         return reg.exec(str)[0];
     },
+    getElementAll:function(str){
+        let reg = /<.*build=.*>.*<\/.*>/g;
+        return str.match(reg);
+    },
     getDom:function(str){
-        let getElementAll=function(str){
-            let reg = /<.*build=.*>.*<\/.*>/g;
-            return str.match(reg);
-        }
-
         let reg = /(?<=<html>)[\s\S]*?(?=<\/html>)/g;
         htmlStr = str.match(reg)[0];
         
-        let elements = getElementAll(htmlStr);
+        let elements = build.getElementAll(htmlStr);
         let dom = {
             html:{}
         };
@@ -83,6 +83,22 @@ const build = {
         }
         return dom;
     },
+    loopAnalysis:function(str){
+        let cout=0;
+        while(1){
+            let buildList = build.getElementAll(str);
+            if(!buildList){
+                break
+            }
+            let tagName = buildList[0].match(/(?<=<)[\s\S]*?(?= )/)[0];
+            let filePath = buildList[0].match(/(?<=build=")[\s\S]*?(?=")/)[0];
+            console.log(`第${++cout}次迭代解析${tagName}:${filePath}`);
+            let content = build.read(path.join(__dirname,"public","html",filePath));
+            let html = `<${tagName}>${content}</${tagName}>`;
+            str = str.replace(buildList[0],html);
+        }
+        return str;
+    },
     makeFile:function(fileName){
         build.targetData = `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">`;
         let text = build.read(path.join(__dirname,"public",fileName));
@@ -90,7 +106,9 @@ const build = {
         let dom = build.getDom(text);
         build.targetData+=`</head><body>`;
         for(let key in dom.html){
-            build.targetData+=`<${key}>${build.read(path.join(__dirname,"public",dom.html[key].build))}</${key}>\n`;
+            let content = build.read(path.join(__dirname,"public",dom.html[key].build));
+            content = build.loopAnalysis(content);
+            build.targetData+=`<${key}>${content}</${key}>\n`;
         }
         build.targetData+=`</body></html>`;
         build.write(fileName,build.targetData);
