@@ -13,6 +13,7 @@
     }
     nav .logo{
         font-size: 1.5rem;
+        cursor: pointer;
     }
     .nav-tiem{
         margin-right: 0;
@@ -20,6 +21,7 @@
     }
     .nav-tiem div{
         margin: 5px;
+        cursor: pointer;
     }
     .search i{
         font-size: 0.75rem;
