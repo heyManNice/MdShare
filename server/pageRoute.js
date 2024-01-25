@@ -81,9 +81,6 @@ pageRoute = {
         return res.send(text);
     },
     latex:{
-        js:async function(req,res){
-            return res.sendFile(path.join(main_dirname,"public","latex","tex-chtml.js"));
-        },
         font:async function(req,res){
             if(!req.params.font){
                 res.status(403);

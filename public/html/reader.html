@@ -13,6 +13,7 @@
 </section>
 <footer>
     <form class="comment_send" action="">
+        <p>添加你的评论</p>
         <div>
             <input type="email" name="email" id="email" placeholder="邮箱(保密&可选:你将在被回复时收到通知)">
         </div>
@@ -23,7 +24,7 @@
             <input type="text" name="nickname" id="nickname" placeholder="名称(公开&必填)" required>
             <input type="submit" value="发送">
         </div>
-        <textarea name="comment" id="comment" placeholder="评论(公开&必填&不可删除)" minlength="10" required></textarea>
+        <textarea name="comment" id="comment" placeholder="评论(公开&必填&不可删除&支持markdown语法)" minlength="10" required></textarea>
     </form>
     <div class="comment_div">
         <div class="comment_card">没有更多评论了</div>

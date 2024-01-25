@@ -144,6 +144,11 @@ body,html{
     .comment_send{
         width: 100%;
     }
+    .comment_send p{
+        border-left: 2px solid var(--main-theme-color);
+        padding-left: 3px;
+        margin: 5 0px;
+    }
     .comment_send>div{
         height: 30px;
         margin-bottom: 10px;
@@ -154,21 +159,28 @@ body,html{
         box-sizing: border-box;
         outline: none;
         border: none;
-        border-left: 2px solid var(--main-theme-color);
+        
         padding-left: 5px;
         border-bottom: 1px solid var(--main-shadow-color);
         width: 100%;
     }
     .comment_send div input[type=text]{
-        width: 235px;
+        width: 73%;
     }
     .comment_send div input[type=submit]{
         position: absolute;
-        width: 80px;
+        width: 25%;
         right: 0px;
         cursor: pointer;
         border-left: none;
         padding-left: 0;
+        border: none;
+        transition: 300ms;
+    }
+    .comment_send div input[type=submit]:hover{
+        border: none;
+        background-color: var(--main-theme-color);
+        color: var(--main-bg-color);
     }
     .comment_send>textarea{
         width: 100%;
@@ -176,11 +188,19 @@ body,html{
         outline: none;
         box-sizing: border-box;
         border: none;
-        border-left: 2px solid var(--main-theme-color);
+        
         padding-left: 5px;
         resize: vertical;
         border-bottom: 1px solid var(--main-shadow-color);
         margin-bottom: 20px;
+    }
+    .comment_send div input:hover,.comment_send>textarea:hover{
+        border-left: 2px solid var(--main-theme-color);
+        padding-left: 3px;
+    }
+    .comment_send div input:focus,.comment_send>textarea:focus{
+        border-left: 2px solid var(--main-theme-color);
+        padding-left: 3px;
     }
 }
 
