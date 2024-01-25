@@ -39,6 +39,8 @@ const build = {
         return fs.readFileSync(filePath).toString();
     },
     write:function(fileName,data){
+        let dirPath = path.join(__dirname,"build");
+        fs.existsSync(dirPath) || fs.mkdirSync(dirPath);
         let filepath = path.join(__dirname,"build",fileName);
         fs.writeFileSync(filepath,data);
     },
