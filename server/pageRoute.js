@@ -61,7 +61,7 @@ pageRoute = {
         return res.sendFile(path.join(main_dirname,"public","admin","admin_login.html"));
     },
     admin_post:async function(req,res){
-        if(req.body.account!="admin" || req.body.password!=config.sweet.password){
+        if(req.body.account!=config.sweet.account || req.body.password!=config.sweet.password){
             if(config.sweet.log){
                 clearTimeout(sweet.timer);
                 let log_text = `第${sweet.login_try}次尝试登陆并且失败`
