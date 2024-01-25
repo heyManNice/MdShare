@@ -6,8 +6,10 @@
     --main-em-color: rgb(9, 202, 255);
     --main-text-color:rgb(14,14,14);
     --main-subtext-color:rgb(94,94,94);
-    --main-shadow-color:rgba(0,0,0,0.3);
+    --main-shadow-color:rgba(0,0,0,0.1);
     --main-row-code-color:#A31515;
     --main-bg-code-color:#F3F3F3;
     --main-theme-color:#1677FF;
+    --main-thumb-color:rgba(14,14,0,0.03);
+    --hover-thumb-color:rgba(0,0,0,0.1);
 }

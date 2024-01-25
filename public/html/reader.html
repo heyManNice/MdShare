@@ -12,8 +12,21 @@
     <div class="article print-element"></div>
 </section>
 <footer>
+    <form class="comment_send" action="">
+        <div>
+            <input type="email" name="email" id="email" placeholder="邮箱(保密&可选:你将在被回复时收到通知)">
+        </div>
+        <div>
+            <input type="url" name="url" id="url" placeholder="个人网址(公开&可选:favicon.ico用作头像)">
+        </div>
+        <div>
+            <input type="text" name="nickname" id="nickname" placeholder="名称(公开&必填)" required>
+            <input type="submit" value="发送">
+        </div>
+        <textarea name="comment" id="comment" placeholder="评论(公开&必填&不可删除)" minlength="10" required></textarea>
+    </form>
     <div class="comment_div">
-        评论
+        <div class="comment_card">没有更多评论了</div>
     </div>
     <div class="footerInfo" build="./footerInfo.html"></div>
 </footer>

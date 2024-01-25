@@ -9,6 +9,12 @@
             "name":"build & run",
             "request": "launch",
             "command": "node build_html.js && node main.js"
+        },
+        {
+            "type":"node-terminal",
+            "name":"build",
+            "request": "launch",
+            "command": "node build_html.js"
         }
     ]
 }
