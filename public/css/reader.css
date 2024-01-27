@@ -126,9 +126,41 @@ body,html{
         height: 1px;
         border: none;
     }
-    .article>pre>code{
+    .article>pre{
         border: 1px solid var(--main-shadow-color);
         border-radius: 4px;
+        overflow: hidden;
+        transition: 300ms;
+    }
+    .article>pre>.code_bar{
+        padding: 5px 10px;
+        color: white;
+        background-color: var(--main-theme-color);
+        position: relative;
+    }
+    .article>pre>.code_bar>span{
+        cursor: pointer;
+    }
+    .article>pre>.code_bar>span>i{
+        position: relative;
+        top: 1px;
+        font-size: 0.75rem;
+        margin-right: 5px;
+        transition: 300ms;
+        transform: rotateZ(-90deg);
+    }
+    .article>.expand>.code_bar>span>i{
+        transform: rotateZ(0deg) !important;
+    }
+    .article>pre>.code_bar>button{
+        position: absolute;
+        right: 0;
+        top: 2px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        color: white;
+        background-color: var(--main-theme-color);
     }
     .CtxtMenu_MenuFrame{
         z-index: 99999 !important;

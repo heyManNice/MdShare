@@ -32,6 +32,7 @@ showMd = function(mdtext){
     MathJax.typeset([".article"]);
     hljs.highlightAll();
     setTitleNum(".article");
+    setCodeBtn(".article");
 }
 FnewDate=function (time) {
     function padZero(num) {
@@ -125,5 +126,55 @@ observTitle = function(directory){
     },options);
     for(var i=0;i<directory.length;i++){
         observer.observe(document.querySelector("#"+directory[i].anchor));
+    }
+}
+setCodeBtn = function(emName){
+    let getLanguage = function(_emName){
+        let classList = _emName.querySelector("code").classList;
+        let language;
+        for(let i=0;i<classList.length;i++){
+            if(language = classList[i].match(/(?<=^language-).*/)){
+                break;
+            }
+        }
+        return language[0];
+    }
+    let preCodeList = document.querySelectorAll(emName+" pre");
+    for(let i=0;i<preCodeList.length;i++){
+        let div = document.createElement("div");
+        div.setAttribute("class","code_bar");
+        div.innerHTML = `<span onclick="switchCodeView(this)"><i class="fa fa-angle-down" aria-hidden="true" /></i>${getLanguage(preCodeList[i])}</span><button onclick="copyCode(this)"><i class="fa fa-copy" aria-hidden="true" /></i> 复制</button>`;
+        preCodeList[i].prepend(div);
+        let realH = preCodeList[i].offsetHeight;
+        preCodeList[i].setAttribute("real_heigh",realH);
+        preCodeList[i].style.height = realH+"px";
+        preCodeList[i].setAttribute("close_heigh",div.offsetHeight);
+        preCodeList[i].setAttribute("class","expand");
+    }
+}
+
+copy = function(str) {
+    let textArea = document.createElement("textArea");
+    textArea.value = str;
+    textArea.style.position = "absolute";
+    textArea.style.left = "-9999px";
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+}
+copyCode = function(em){
+    let text = em.parentElement.parentElement.querySelector("code").innerText;
+    copy(text);
+}
+switchCodeView = function(em){
+    let pre = em.parentElement.parentElement;
+    console.log(pre);
+    if(pre.classList.contains("expand")){
+        pre.classList.remove("expand");
+        pre.style.height=pre.getAttribute("close_heigh")+"px";
+    }else{
+        pre.classList.add("expand");
+        pre.style.height=pre.getAttribute("real_heigh")+"px";
     }
 }
