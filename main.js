@@ -1,7 +1,8 @@
 //加载基础初始化服务
-require('./server/init.js');
-require('./config.js');
 main_dirname = __dirname;
+require('./server/init.js');
+require('./server/configChecker.js');
+require('./config.js');
 
 const server = require('express')();
 const rateLimit= require('express-rate-limit').rateLimit;
