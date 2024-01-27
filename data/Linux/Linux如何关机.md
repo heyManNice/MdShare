@@ -7,7 +7,6 @@
 
 ## python程序  
 ```python
-#!/usr/bin/env python3
 print("Hello, World!");
 def test():
     a = 1 + 1

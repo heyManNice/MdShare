@@ -6,7 +6,6 @@ main_dirname = __dirname;
 const server = require('express')();
 const rateLimit= require('express-rate-limit').rateLimit;
 const bodyParser = require('body-parser');
-const port = 8081;
 
 //访问限制
 server.use(rateLimit({windowMs:config.rateLimit.time * 60 * 1000, limit: config.rateLimit.limit, standardHeaders: 'draft-7', legacyHeaders: false,message: {code:429,msg:"请求次数过多，请稍后再试"}}));
@@ -40,6 +39,6 @@ if(config.sweet.enable){
     server.post('/admin', pageRoute.admin_post );
 }
 
-server.listen(port, () => {
-    print(`系统已运行在 ${port}`);
+server.listen(config.port, () => {
+    print(`系统已运行在${config.port}`);
 })
