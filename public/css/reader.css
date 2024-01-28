@@ -139,7 +139,13 @@ body,html{
         position: relative;
     }
     .article>pre>.code_bar>span{
+        padding: 2px 5px;
+        transition: 300ms;
         cursor: pointer;
+        border-radius: 2px;
+    }
+    .article>pre>.code_bar>span:hover{
+        background-color: var(--hover-theme-color);
     }
     .article>pre>.code_bar>span>i{
         position: relative;
@@ -154,13 +160,31 @@ body,html{
     }
     .article>pre>.code_bar>button{
         position: absolute;
-        right: 0;
+        right: 5px;
         top: 2px;
         outline: none;
         border: none;
         cursor: pointer;
         color: white;
         background-color: var(--main-theme-color);
+        transition: 300ms;
+        border-radius: 2px;
+    }
+    .article>pre>.code_bar>button:active{
+        transition: 10ms;
+        /* animation: copyAnimation 300ms; */
+        transform: scale(0.5);
+    }
+    @keyframes copyAnimation {
+        from{
+            transform: scale(0.1);
+        }
+        to{
+            transform: scale(1);
+        }
+    }
+    .article>pre>.code_bar>button:hover{
+        background-color: var(--hover-theme-color);
     }
     .CtxtMenu_MenuFrame{
         z-index: 99999 !important;

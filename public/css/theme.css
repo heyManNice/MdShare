@@ -10,6 +10,26 @@
     --main-row-code-color:#A31515;
     --main-bg-code-color:#F3F3F3;
     --main-theme-color:#1677FF;
+    --hover-theme-color:#0b5fd4;
     --main-thumb-color:rgba(14,14,0,0.03);
     --hover-thumb-color:rgba(0,0,0,0.1);
 }
+
+
+/* 一个由ai生成的不错的夜间主题 */
+/* :root{
+    --main-bg-color: #121212;
+    --main-tr-color:#1E1E1E;
+    --mian-td-even:#242424;
+    --main-card-color:rgb(66, 66, 66);
+    --main-em-color: rgb(255, 202, 9);
+    --main-text-color:rgb(255,255,255);
+    --main-subtext-color:rgb(189,189,189);
+    --main-shadow-color:rgba(255,255,255,0.1);
+    --main-row-code-color:#F48771;
+    --main-bg-code-color:#2D2D2D;
+    --main-theme-color:#FFC107;
+    --hover-theme-color:#FFA000;
+    --main-thumb-color:rgba(255,255,255,0.03);
+    --hover-thumb-color:rgba(255,255,255,0.1);
+} */
