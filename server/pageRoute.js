@@ -86,7 +86,7 @@ pageRoute = {
                 res.status(403);
                 return res.send({code:403});
             }
-            let filepath = path.join(main_dirname,"public","latex",req.params.font);
+            let filepath = path.join(main_dirname,"public","webfonts",req.params.font);
             if(!fs.existsSync(filepath)){
                 res.status(404);
                 return res.send({code:404});

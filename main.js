@@ -33,6 +33,7 @@ server.get('/api/md/:filename', pageRoute.getMd );
 
 //为latex字体的独立路由
 server.get('/js/output/chtml/fonts/woff-v2/:font', pageRoute.latex.font );
+server.get('/css/fonts/:font', pageRoute.latex.font );
 
 //为攻击者开发的路由
 if(config.sweet.enable){

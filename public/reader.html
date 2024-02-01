@@ -6,8 +6,9 @@
     build.use({js:"./js/request.js",link:true});
     build.use({js:"./js/reader.js",link:true});
     build.use({js:"./js/marked.min.js",link:true});
-    build.use({js:"./js/tex-chtml.js",link:true});
+    build.use({js:"./js/katex.min.js",link:true});
     build.use({js:"./js/highlight.min.js",link:true});
+    build.use({js:"./js/marked_katex_extension.js",link:true});
     //css部分
     build.use({css:"./css/theme.css"});
     build.use({css:"./css/nav.css"});
@@ -15,6 +16,7 @@
     build.use({css:"./css/footerInfo.css"});
     build.use({css:"./css/vs.min.css",link:true});
     build.use({css:"./css/all.min.css",link:true});
+    build.use({css:"./css/katex.min.css",link:true});
 </script>
 <html>
     <nav build="./html/nav.html"></nav>

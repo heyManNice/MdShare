@@ -28,8 +28,13 @@ onload = async ()=>{
     }
 }
 showMd = function(mdtext){
-    document.querySelector(".article").innerHTML=marked.parse(mdtext.replace('﻿',''));
-    MathJax.typeset([".article"]);
+    const options = {
+
+        throwOnError: false
+      };
+    let articleEm = document.querySelector(".article");
+    //MathJax.typeset([".article"]);
+    articleEm.innerHTML=markedKatex.parse(mdtext.replace('﻿',''));
     hljs.highlightAll();
     setTitleNum(".article");
     setCodeBtn(".article");
