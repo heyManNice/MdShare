@@ -34,6 +34,7 @@ showMd = function(mdtext){
       };
     let articleEm = document.querySelector(".article");
     //MathJax.typeset([".article"]);
+    console.log(mdtext.length);
     console.time();
     for(let i=0;i<20;i++){
         markedKatex.parse(mdtext.replace('﻿',''));

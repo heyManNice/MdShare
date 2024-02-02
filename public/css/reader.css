@@ -18,6 +18,11 @@ body,html{
         overflow: hidden;
         color: var(--main-text-color);
     }
+    html{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+    }
     main{
         flex-grow: 1;
         display: flex;

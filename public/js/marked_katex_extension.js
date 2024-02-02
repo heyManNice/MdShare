@@ -19,7 +19,7 @@ markedKatex = {};
  *这是es6 import导入的用法
  *如果使用此方法请注释掉markedKatex = {};
  */
-//export const markedKatex = {};
+//export var markedKatex = {};
 
 //为全局变量赋值，并设置slef为该对象的自指
 {let slef =  markedKatex = {
@@ -46,8 +46,8 @@ markedKatex = {};
    *返回html字符串
    */
   parse:function(string){
-    marked || slef.err("marked插件未加载");
-    katex || slef.err("katex插件未加载");
+    typeof marked === 'undefined' && slef.err("marked插件未加载");
+    typeof katex ==='undefined' && slef.err("katex插件未加载");
     string = slef.parseBlockLatex(string);
     string = slef.parseInlineLatex(string); 
     marked.setOptions(slef.options.marked);
