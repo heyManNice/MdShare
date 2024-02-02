@@ -28,18 +28,7 @@ onload = async ()=>{
     }
 }
 showMd = function(mdtext){
-    const options = {
-
-        throwOnError: false
-      };
     let articleEm = document.querySelector(".article");
-    //MathJax.typeset([".article"]);
-    console.log(mdtext.length);
-    console.time();
-    for(let i=0;i<20;i++){
-        markedKatex.parse(mdtext.replace('﻿',''));
-    }
-    console.timeEnd();
     articleEm.innerHTML=markedKatex.parse(mdtext.replace('﻿',''));
     hljs.highlightAll();
     setTitleNum(".article");
