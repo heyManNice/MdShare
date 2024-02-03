@@ -1,27 +1,27 @@
 const fs = require("fs");
 const path = require('path');
 
-scanner = {
+const public = {
     fileList:{},
     scan:function(){
-        scanner.fileList={};
-        let dirArr = fs.readdirSync(path.join(main_dirname,"data"));
+        public.fileList={};
+        let dirArr = fs.readdirSync(path.join(__rootdir,"data"));
         for(var i = 0;i<dirArr.length;i++){
-            let fileArr = fs.readdirSync(path.join(main_dirname,"data",dirArr[i]));
+            let fileArr = fs.readdirSync(path.join(__rootdir,"data",dirArr[i]));
             for(var j = 0;j < fileArr.length;j++){
-                scanner.fileList[fileArr[j]] = {class:dirArr[i]};
+                public.fileList[fileArr[j]] = {class:dirArr[i]};
             }
         }
-        print("内存缓存："+JSON.stringify(scanner.fileList));
-        scanner.flashMeta();
+        print("内存缓存："+JSON.stringify(public.fileList));
+        public.flashMeta();
     },
     flashMeta:function(){
-        for(var key in scanner.fileList){
-            let filepath = path.join(main_dirname,"metadata",key+".json");
+        for(var key in public.fileList){
+            let filepath = path.join(__rootdir,"metadata",key+".json");
             if(fs.existsSync(filepath)){
                 continue;
             }
-            let metaJson = {ctime:new Date().getTime(),mtime:new Date().getTime(),class:scanner.fileList[key]["class"],look:0,like:0,comment:{}}
+            let metaJson = {ctime:new Date().getTime(),mtime:new Date().getTime(),class:public.fileList[key]["class"],look:0,like:0,comment:{}}
             fs.writeFileSync(filepath,JSON.stringify(metaJson),{flag:"wx"})
         }
     },
@@ -42,3 +42,5 @@ scanner = {
         return JSON.parse(fs.readFileSync(filepath));
     }
 }
+
+module.exports = public;

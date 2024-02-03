@@ -1,4 +1,4 @@
-sql = {
+const public = {
     sqlKeysReg:/ AND | OR | ORDER BY | UNION | WHERE /i,
     isDanger:function(value){
         let string = "";
@@ -15,7 +15,9 @@ sql = {
                 throw new Error("Unknown value type");
                 break;
         }
-        return sql.sqlKeysReg.test(string);
+        return public.sqlKeysReg.test(string);
     }
 
 }
+
+module.exports = public;

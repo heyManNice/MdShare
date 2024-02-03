@@ -1,46 +1,70 @@
-//加载基础初始化服务
-main_dirname = __dirname;
-require('./server/init.js');
-require('./server/configChecker.js');
-require('./config.js');
+/*将main.js所在路径标记为根目录
+ *全局变量__rootdir共给所有文件使用
+ */
+__rootdir = __dirname;
 
-const server = require('express')();
-const rateLimit= require('express-rate-limit').rateLimit;
-const bodyParser = require('body-parser');
+const fs = require("fs");
+const path = require("path");
+const utils = require('./server/tool/utils')
 
-//访问限制
-server.use(rateLimit({windowMs:config.rateLimit.time * 60 * 1000, limit: config.rateLimit.limit, standardHeaders: 'draft-7', legacyHeaders: false,message: {code:429,msg:"请求次数过多，请稍后再试"}}));
+const self = {
+    /*执行启动程序
+     *获取./server/execute下的模块对象
+     *并按照顺序执行对象脚本
+     */
+    start:function(){
+        let exeArr = self.getExeArr();
+        exeArr = self.sort(exeArr);
+        self.logExe(exeArr);
+        self.runExe(exeArr);
+    },
+    /*获取并载入./server/execute下的程序模块对象
+    *无输入
+    *返回execute下的对象
+    */
+    getExeArr:function(){
+        let executeArr = fs.readdirSync(path.join(__rootdir,"server","execute"));
+        for(let i=executeArr.length-1;i>-1;i--){
+            if(path.extname(executeArr[i]) != ".js"){
+                continue;
+            }
+            let basename = executeArr[i];
+            executeArr[i]=require(path.join(__rootdir,"server","execute",executeArr[i]));
+            executeArr[i].basename = basename.split('.')[0];
+        }
+        return executeArr;
+    },
+    /*已数组对象内的pid成员升序排序
+     *输入需要排序的数组
+     *返回排好序的数组
+     */
+    sort:function(arr){
+        return arr.sort((a,b)=>{
+            return a.pid-b.pid;
+        });
+    },
+    /*按格式打印执行的脚本
+     *传入存有对象的数组
+     *打印出相应格式数据
+     */
+    logExe:function(executeArr){
+        console.log("".padEnd(40,"-"));
+        console.log(`${'pid'.padEnd(5)} ${'执行脚本'.padEnd(11)} 注释`);
+        for(let i=0;i<executeArr.length;i++){
+            let execute = executeArr[i];
+            console.log(` ${execute.pid.toString().padEnd(4)} ${execute.basename.padEnd(15)} ${utils.getFileExplan("./server/execute/"+execute.basename+".js")}`);
+        }
+        console.log("".padEnd(40,"-"));
+    },
+    /*按顺序执行程序
+     *传入程序对象数组
+     */
+    runExe:function(executeArr){
+        for(let i=0;i<executeArr.length;i++){
+            let execute = executeArr[i];
+            execute.main && execute.main();
+        }
+    }
+};
 
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: false }));
-
-//加载服务组件
-loadServer('pageRoute');
-loadServer('watchFile');
-loadServer('scanner');
-loadServer('sql');
-loadServer('sweet');
-
-//路由
-server.get('/', pageRoute.index );
-server.get('/favicon.ico', pageRoute.favicon);
-server.get('/test', pageRoute.test );
-server.get('/reader', pageRoute.reader );
-server.get('/:type/:filename', pageRoute.public );
-
-//api
-server.get('/api/md/:filename', pageRoute.getMd );
-
-//为latex字体的独立路由
-server.get('/js/output/chtml/fonts/woff-v2/:font', pageRoute.latex.font );
-server.get('/css/fonts/:font', pageRoute.latex.font );
-
-//为攻击者开发的路由
-if(config.sweet.enable){
-    server.get('/admin', pageRoute.admin );
-    server.post('/admin', pageRoute.admin_post );
-}
-
-server.listen(config.port, () => {
-    print(`系统已运行在${config.port}`);
-})
+self.start();
