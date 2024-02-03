@@ -11,12 +11,12 @@ $ z=z_l $
 
 $$ \frac{7x+5}{1+y^2} $$
 
-$ \begin{array}{lll}
+$$ \begin{array}{lll}
 \nabla\times E &=& -\;\frac{\partial{B}}{\partial{t}}   
 \ \nabla\times H &=& \frac{\partial{D}}{\partial{t}}+J   
 \ \nabla\cdot D &=& \rho
 \ \nabla\cdot B &=& 0
-\ \end{array} $
+\ \end{array} $$
 
 
 这么大一坨公式在行内的样子 $ \begin{cases} x+y+z=10\\ x+2y+3z=20\\ x+4y+5z=30 \end{cases} $  

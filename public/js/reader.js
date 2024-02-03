@@ -68,7 +68,7 @@ setTitleNum = function(emName){
         }
         let bit = tagName.slice(1,2);
         Num = Num.splice(0,bit);
-        if(Num[bit-1]===undefined){
+        if(Num[bit-1] === void 0){
             Num[bit-1] = 1;
         }else{
             Num[bit-1]++;
@@ -148,7 +148,7 @@ setCodeBtn = function(emName){
         let realH = preCodeList[i].offsetHeight;
         preCodeList[i].setAttribute("real_heigh",realH);
         preCodeList[i].style.height = realH+"px";
-        preCodeList[i].setAttribute("close_heigh",div.offsetHeight);
+        preCodeList[i].setAttribute("close_heigh",div.offsetHeight+40);
         preCodeList[i].setAttribute("class","expand");
     }
 }
@@ -169,7 +169,6 @@ copyCode = function(em){
 }
 switchCodeView = function(em){
     let pre = em.parentElement.parentElement;
-    console.log(pre);
     if(pre.classList.contains("expand")){
         pre.classList.remove("expand");
         pre.style.height=pre.getAttribute("close_heigh")+"px";
