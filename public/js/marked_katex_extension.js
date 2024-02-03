@@ -10,8 +10,8 @@
  */
 
 /*定义全局变量
- *这是传统js cdn或者require导入的用法
- *如果使用此方法请注释掉export const markedKatex = {};
+ *这是传统js cdn导入的用法
+ *如果使用此方法请注释掉export var markedKatex = {};
  */
 markedKatex = {};
 
