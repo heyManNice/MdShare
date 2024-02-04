@@ -1,9 +1,3 @@
-MathJax = {
-    tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]},
-    options: {
-        enableMenu: false
-    }
-};
 sleep = function(ms){
     return new Promise(( resolve, reject ) => {
         setTimeout(function(){

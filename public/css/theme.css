@@ -1,5 +1,6 @@
 :root{
-    --main-bg-color: white;
+    --this_is_theme_file:blue;
+    --main-bg-color:white;
     --main-tr-color:#EFF3F5;
     --mian-td-even:#F7F7F7;
     --main-card-color:rgb(226, 226, 226);
