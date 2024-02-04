@@ -9,6 +9,10 @@ const public = {
         for(var i = 0;i<dirArr.length;i++){
             let fileArr = fs.readdirSync(path.join(__rootdir,"data",dirArr[i]));
             for(var j = 0;j < fileArr.length;j++){
+                let filepath = path.join(__rootdir,"data",dirArr[i],fileArr[j]);
+                if(fs.statSync(filepath).isDirectory() || path.extname(fileArr[j])!='.md'){
+                    continue;
+                }
                 public.fileList[fileArr[j]] = {class:dirArr[i]};
             }
         }
