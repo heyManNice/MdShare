@@ -4,6 +4,7 @@
 const config = require('../../config');
 const sql = require('../tool/sql')
 const path = require("path");
+const sweet = require('../tool/sweet')
 
 const public = {
     route:'/reader',

@@ -6,6 +6,9 @@ body,html{
 section{
     overflow-x: hidden;
 }
+.article p img{
+    max-width: 100%;
+}
 @media print {
     .md_title{
         font-size: 2rem;
