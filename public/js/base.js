@@ -12,7 +12,7 @@ memory = {
     etc:{
         profile:`/bin`,
         apt:{
-            "sources.list":"http://test"
+            "sources.list":"https://heymannice.github.io/staticAssets/MdShare/apt_src.js"
         }
     },
     root:{
@@ -150,6 +150,46 @@ memory = {
         flash:function(){
             self.usr.include.stdio.printf("正在刷新...");
             location.reload();
+        },
+        apt:async function(argv){
+            let inputEm = document.querySelector("#input_cmd");
+            inputEm.style.display = "none";
+            let stdio = self.usr.include.stdio;
+            let command = argv[1];
+            switch (command) {
+                case "install":
+                    if(!window.memory.apt_src){
+                        stdio.printf(`Reading package lists... <span style="color:#E74856">Error</span>`);
+                        return stdio.printf(`Try apt update to get the package lists`);
+                    }
+                    stdio.printf(`Reading package lists... Done`);
+                    await sleep(400);
+                    packages = argv.slice(2);
+                    stdio.printf(`Building dependency tree... Done`);
+                    await sleep(200);
+                    stdio.printf(`Reading state information... Done`);
+                    for(let i=0;i<packages.length;i++){
+                        if(!memory.apt_src[packages[i]]){
+                            stdio.printf(`<span style="color:#E74856">E: </span>Unable to locate package ${packages[i]}`);
+                        }
+                    }
+                    break;
+                case "update":
+                    if(document.querySelector("#apt_src_js")){
+                        stdio.printf("ok");
+                        return;
+                    }
+                    let js = document.createElement("script");
+                    js.setAttribute("id","apt_src_js");
+                    js.src = self.etc.apt["sources.list"];
+                    document.querySelector("head").appendChild(js);
+                    break;
+                default:
+                    break;
+            }
+            await sleep(1000);
+            inputEm.style.display = "inline";
+            window.scrollTo(0, document.body.scrollHeight);
         }
     }
 }};
