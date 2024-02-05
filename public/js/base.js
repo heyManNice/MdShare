@@ -5,36 +5,138 @@ sleep = function(ms){
         },ms)
     });
 }
-{let self= window.base = {
-    cmds:{
-        flash:function(){
-            location.reload()
-            return "<p>正在刷新</p>";
+memory = {
+    pwd:['root']
+};
+{let self = window.linux = {
+    etc:{
+        profile:`/bin`
+    },
+    root:{
+        test:{
+
         },
-        ls:function(){
-            return `<p><span style="color:#3B78CA;">公共 &nbsp;模板 &nbsp;视频 &nbsp;图片 &nbsp;文档 &nbsp;下载 &nbsp;音乐 &nbsp;Desktop</span></p>`;
-        },
-        cd:function(argv){
-            if(argv.length == 1){
+        readme:"test"
+    },
+    usr:{
+        include:{
+            stdio:{
+                printf:function(string,...format){
+                    document.querySelector("#cmd_div").innerHTML+=`<p>${string}</p>`;
+                }
+            }
+        }
+    },
+    bin:{
+        bash:function(args){
+            let stdio = self.usr.include.stdio;
+            if(window.memory==undefined||window.memory.bin==undefined){
+                if(!window.memory){
+                    window.memory = {};
+                }
+                window.memory.bin={};
+                let envList = self.etc.profile.split('\n');
+                for(let i=0;i<envList.length;i++){
+                    let pathArr = envList[i].split("/");
+                    pathArr.shift();
+                    let binDir = self;
+                    for(let i=0;i<pathArr.length;i++){
+                        binDir=binDir[pathArr[i]];
+                    }
+                    for(let key in binDir){
+                        if(typeof binDir[key] == 'function'){
+                            window.memory.bin[key] = binDir[key];
+                        }
+                    }
+                }
+            }
+            if(!args){
                 return "";
             }
-            return `<p>-bash: cd: ${argv[1]}: 无效的选项</p><p>cd: 用法：cd 没有用法</p>`
-        }
-    },
-    runCmd:function(e,em){
-        if(e.keyCode == 13){
-            let cmd = em.value.split(" ");
-            let result = "";
-            if(self.cmds[cmd[0]]){
-                result=self.cmds[cmd[0]](cmd);
+            let cmd = args.split(" ");
+            document.querySelector("#cmd_div").innerHTML+=`<p><span style="color: #0DAE0D;">root@debian:/${memory.pwd.join("/")} #</span> ${args}</p>`;
+            if(memory.bin[cmd[0]]){
+                memory.bin[cmd[0]](cmd);
             }else{
-                result=`<p>-bash: ${cmd[0]}: command not found</p>`;
+                stdio.printf(`-bash: ${cmd[0]}: command not found`);
             }
-            document.querySelector("#cmd_div").innerHTML+=`<p><span style="color: #0DAE0D;">root@debian:/root#</span> ${em.value}</p>${result}`;
-            em.value = "";
+            document.querySelector("#input_cmd input").value = "";
             window.scrollTo(0, document.body.scrollHeight);
+            
+        },
+        ls:function(){
+            let stdio = self.usr.include.stdio;
+            let dir = self;
+            for(let i=0;i<memory.pwd.length;i++){
+                dir = dir[memory.pwd[i]]
+            }
+            let result = "";
+            for(let key in dir){
+                switch (typeof dir[key]) {
+                    case 'object':
+                        result+=`<span style="color:#3B78CA;">${key} &nbsp;</span>`;
+                        break;
+                    case 'function':
+                        result+=`<span style="color:#3de057;">${key} &nbsp;</span>`; 
+                        break;
+                    default:
+                        result+=`${key} &nbsp;`;
+                        break;
+                }
+            }
+            stdio.printf(result);
+            return 0;
+        },
+        cd:function(cmd){
+            let stdio = self.usr.include.stdio;
+            let pathArr = cmd[1].split("/");
+            for(let i=0;i<pathArr.length;i++){
+                if(pathArr[i]==""&&i){
+                    break
+                }
+                switch (pathArr[i]) {
+                    case "":
+                        memory.pwd = [];
+                        break;
+                    case ".":
+                        break;
+                    case "..":
+                        memory.pwd.pop();
+                        break;
+                    default:
+                        let dir = self;
+                        for(let i=0;i<memory.pwd.length;i++){
+                            dir = dir[memory.pwd[i]]
+                        }
+                        if(dir[pathArr[i]]){
+                            memory.pwd.push(pathArr[i]);
+                        }else{
+                            stdio.printf(`-cd: no such file or directory: ${cmd[1]}`);
+                            document.querySelector("#input_cmd span").innerHTML = `root@debian:/${memory.pwd.join("/")} #`;
+                            return
+                        }
+                        break;
+                }
+            }
+            document.querySelector("#input_cmd span").innerHTML = `root@debian:/${memory.pwd.join("/")} #`;
+        },
+        cat:function(cmd){
+            let file = cmd[1];
+            let dir = self;
+            for(let i=0;i<memory.pwd.length;i++){
+                dir = dir[memory.pwd[i]]
+            }
+            if(dir[file]){
+                self.usr.include.stdio.printf(dir[file]);
+            }
+        },
+        flash:function(){
+            self.usr.include.stdio.printf("正在刷新...");
+            location.reload();
         }
-    },
+    }
+}};
+{let self= window.base = {
     countdown:async function(em_id){
         let em = document.querySelector(em_id);
         if(em.innerHTML<=0){
@@ -42,7 +144,7 @@ sleep = function(ms){
         }else{
             await sleep(1000);
             em.innerHTML--;
-            self.countdown(em_id);
+            //self.countdown(em_id);
         }
     },
     loadError:function(e){
@@ -83,7 +185,7 @@ sleep = function(ms){
             }
             await sleep(500);
             em.innerHTML+=`<p>请求次数过多，<span id="timer_s">60</span>秒后自动重试。输入flash手动刷新页面</p>`;
-            document.querySelector("#input_cmd").innerHTML=`<span style="color: #0DAE0D;">root@debian:/root#</span> <input autofocus="true" style="background-color: black;color: white;outline: none;border: none;font-size: 1rem;padding: 0;" onkeydown="base.runCmd(event,this)" type="text">`;
+            document.querySelector("#input_cmd").innerHTML=`<span style="color: #0DAE0D;">root@debian:/${memory.pwd.join("/")} #</span> <input autofocus="true" style="background-color: black;color: white;outline: none;border: none;font-size: 1rem;padding: 0;" onkeydown="if(event.keyCode==13){linux.bin.bash(this.value)}" type="text">`;
             self.countdown("#timer_s");
         }
     }
