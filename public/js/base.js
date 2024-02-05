@@ -10,19 +10,31 @@ memory = {
 };
 {let self = window.linux = {
     etc:{
-        profile:`/bin`
+        profile:`/bin`,
+        apt:{
+            "sources.list":"http://test"
+        }
     },
     root:{
         test:{
 
         },
-        readme:"test"
+        "readme.md":"test"
     },
     usr:{
         include:{
             stdio:{
                 printf:function(string,...format){
                     document.querySelector("#cmd_div").innerHTML+=`<p>${string}</p>`;
+                }
+            },
+            stdlib:{
+                _pgmptr:function(){
+                    let dir = self;
+                    for(let i=0;i<memory.pwd.length;i++){
+                        dir = dir[memory.pwd[i]]
+                    }
+                    return dir;
                 }
             }
         }
@@ -64,12 +76,10 @@ memory = {
             window.scrollTo(0, document.body.scrollHeight);
             
         },
-        ls:function(){
+        ls:function(argv){
             let stdio = self.usr.include.stdio;
-            let dir = self;
-            for(let i=0;i<memory.pwd.length;i++){
-                dir = dir[memory.pwd[i]]
-            }
+            let stdlib = self.usr.include.stdlib;
+            let dir = stdlib._pgmptr();
             let result = "";
             for(let key in dir){
                 switch (typeof dir[key]) {
@@ -87,9 +97,10 @@ memory = {
             stdio.printf(result);
             return 0;
         },
-        cd:function(cmd){
+        cd:function(argv){
             let stdio = self.usr.include.stdio;
-            let pathArr = cmd[1].split("/");
+            let path = argv[1];
+            let pathArr = path.split("/");
             for(let i=0;i<pathArr.length;i++){
                 if(pathArr[i]==""&&i){
                     break
@@ -104,31 +115,37 @@ memory = {
                         memory.pwd.pop();
                         break;
                     default:
-                        let dir = self;
-                        for(let i=0;i<memory.pwd.length;i++){
-                            dir = dir[memory.pwd[i]]
+                        let stdlib = self.usr.include.stdlib;
+                        let dir = stdlib._pgmptr();
+                        let target = dir[pathArr[i]];
+                        if(!target){
+                            stdio.printf(`-cd: no such file or directory: ${path}`);
+                            base.updataPwd();
+                            return;
                         }
-                        if(dir[pathArr[i]]){
-                            memory.pwd.push(pathArr[i]);
-                        }else{
-                            stdio.printf(`-cd: no such file or directory: ${cmd[1]}`);
-                            document.querySelector("#input_cmd span").innerHTML = `root@debian:/${memory.pwd.join("/")} #`;
-                            return
+                        if(typeof target != 'object'){
+                            stdio.printf(`-cd: not a directory: ${path}`);
+                            base.updataPwd();
+                            return;
                         }
+                        memory.pwd.push(pathArr[i]);
                         break;
                 }
             }
-            document.querySelector("#input_cmd span").innerHTML = `root@debian:/${memory.pwd.join("/")} #`;
+            base.updataPwd();
         },
-        cat:function(cmd){
-            let file = cmd[1];
-            let dir = self;
-            for(let i=0;i<memory.pwd.length;i++){
-                dir = dir[memory.pwd[i]]
+        cat:function(argv){
+            let file = argv[1];
+            let stdlib = self.usr.include.stdlib;
+            let stdio = self.usr.include.stdio;
+            let dir = stdlib._pgmptr();
+            if(!dir[file]){
+                return stdio.printf(`-cat: ${file}: no such file or directory`);
             }
-            if(dir[file]){
-                self.usr.include.stdio.printf(dir[file]);
+            if(typeof dir[file] == 'object'){
+                return stdio.printf(`-cat: ${file}: Is a directory`);
             }
+            self.usr.include.stdio.printf(dir[file]);
         },
         flash:function(){
             self.usr.include.stdio.printf("正在刷新...");
@@ -137,6 +154,9 @@ memory = {
     }
 }};
 {let self= window.base = {
+    updataPwd:function(){
+        document.querySelector("#input_cmd span").innerHTML = `root@debian:/${memory.pwd.join("/")} #`;
+    },
     countdown:async function(em_id){
         let em = document.querySelector(em_id);
         if(em.innerHTML<=0){
