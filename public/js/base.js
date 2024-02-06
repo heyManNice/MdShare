@@ -26,6 +26,7 @@ memory = {
             stdio:{
                 printf:function(string,...format){
                     document.querySelector("#cmd_div").innerHTML+=`<p>${string}</p>`;
+                    window.scrollTo(0, document.body.scrollHeight);
                 }
             },
             stdlib:{
@@ -35,6 +36,16 @@ memory = {
                         dir = dir[memory.pwd[i]]
                     }
                     return dir;
+                },
+                showInput:function(enable){
+                    let inputEm = document.querySelector("#input_cmd");
+                    if(enable){
+                        inputEm.style.display = "";
+                        window.scrollTo(0, document.body.scrollHeight);
+                        inputEm.querySelector("input").focus();
+                    }else{
+                        inputEm.style.display = "none";
+                    }
                 }
             }
         }
@@ -145,22 +156,23 @@ memory = {
             if(typeof dir[file] == 'object'){
                 return stdio.printf(`-cat: ${file}: Is a directory`);
             }
-            self.usr.include.stdio.printf(dir[file]);
+            self.usr.include.stdio.printf("<pre><code>"+dir[file].toString().replaceAll("<","&lt;")+"</code></pre>");
         },
         flash:function(){
             self.usr.include.stdio.printf("正在刷新...");
             location.reload();
         },
         apt:async function(argv){
-            let inputEm = document.querySelector("#input_cmd");
-            inputEm.style.display = "none";
             let stdio = self.usr.include.stdio;
+            let stdlib = self.usr.include.stdlib;
+            stdlib.showInput(0);
             let command = argv[1];
             switch (command) {
                 case "install":
                     if(!window.memory.apt_src){
                         stdio.printf(`Reading package lists... <span style="color:#E74856">Error</span>`);
-                        return stdio.printf(`Try apt update to get the package lists`);
+                        stdio.printf(`Try apt update to get the package lists`);
+                        return stdlib.showInput(1);
                     }
                     stdio.printf(`Reading package lists... Done`);
                     await sleep(400);
@@ -173,23 +185,52 @@ memory = {
                             stdio.printf(`<span style="color:#E74856">E: </span>Unable to locate package ${packages[i]}`);
                         }
                     }
+                    stdlib.showInput(1);
                     break;
                 case "update":
-                    if(document.querySelector("#apt_src_js")){
-                        stdio.printf("ok");
+                    let done = async function(){
+                        stdio.printf(`Reading package lists... Done`);
+                        await sleep(200);
+                        stdio.printf(`Building dependency tree... Done`);
+                        await sleep(50);
+                        stdio.printf(`Reading state information... Done`);
+                        stdio.printf(`All packages are up to date.`);
+                        stdlib.showInput(1);
+                    }
+                    if(memory.apt_src){
+                        await done();
                         return;
                     }
                     let js = document.createElement("script");
-                    js.setAttribute("id","apt_src_js");
                     js.src = self.etc.apt["sources.list"];
                     document.querySelector("head").appendChild(js);
+                    let tryCount = 64,count = 0;
+                    let info = {
+                        time:new Date().getTime(),
+                        lenth:0
+                    }
+                    for(count=0;count<tryCount;count++){
+                        let random = Math.round(Math.random()*200); 
+                        info.lenth+=random;
+                        stdio.printf(`Get:${count} ${self.etc.apt["sources.list"]} focal InRelease [${random}kB]`);
+                        if(memory.apt_src){
+                            break;
+                        }
+                        await sleep(random);
+                    }
+                    info.time = Math.ceil((new Date().getTime()-info.time)/1000);
+                    if(count == tryCount){
+
+                    }else{
+                        stdio.printf(`Fetched ${info.lenth} kB in ${info.time}s (${info.lenth/info.time} kB/s)`);
+                        await sleep(100);
+                        await done();
+                    }
+                    
                     break;
                 default:
                     break;
             }
-            await sleep(1000);
-            inputEm.style.display = "inline";
-            window.scrollTo(0, document.body.scrollHeight);
         }
     }
 }};
@@ -245,7 +286,7 @@ memory = {
             }
             await sleep(500);
             em.innerHTML+=`<p>请求次数过多，<span id="timer_s">60</span>秒后自动重试。输入flash手动刷新页面</p>`;
-            document.querySelector("#input_cmd").innerHTML=`<span style="color: #0DAE0D;">root@debian:/${memory.pwd.join("/")} #</span> <input autofocus="true" style="background-color: black;color: white;outline: none;border: none;font-size: 1rem;padding: 0;" onkeydown="if(event.keyCode==13){linux.bin.bash(this.value)}" type="text">`;
+            document.querySelector("#input_cmd").innerHTML=`<span style="color: #0DAE0D;">root@debian:/${memory.pwd.join("/")} #</span> <input autofocus="true" style="background-color: black;color: white;outline: none;border: none;font-size: 1rem;padding: 0;" onkeydown="if(event.keyCode==13){linux.bin.bash(this.value)}" type="text"/>`;
             self.countdown("#timer_s");
         }
     }
