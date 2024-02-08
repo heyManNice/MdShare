@@ -12,7 +12,7 @@ memory = {
     etc:{
         profile:`/bin`,
         apt:{
-            "sources.list":"https://heymannice.github.io/staticAssets/MdShare/apt_src.js"
+            "sources.list":"http://127.0.0.1:5500/MdShare/apt_src.js"
         }
     },
     root:{
@@ -181,8 +181,15 @@ memory = {
                     await sleep(200);
                     stdio.printf(`Reading state information... Done`);
                     for(let i=0;i<packages.length;i++){
+                        if(window.memory.bin[packages[i]]){
+                            stdio.printf(`${packages[i]} is already the newest version.`);
+                            stdio.printf(`0 upgraded, 0 newly installed, 0 to remove and ${Object.keys(memory.bin).length} not upgraded.`);
+                            continue;
+                        }
                         if(!memory.apt_src[packages[i]]){
                             stdio.printf(`<span style="color:#E74856">E: </span>Unable to locate package ${packages[i]}`);
+                        }else{
+                            await memory.apt_src[packages[i]].install();
                         }
                     }
                     stdlib.showInput(1);
@@ -230,6 +237,8 @@ memory = {
                     
                     break;
                 default:
+                    stdio.printf(`<span style="color:#E74856">E: </span>Invalid operation ${command}`);
+                    stdlib.showInput(1);
                     break;
             }
         }
