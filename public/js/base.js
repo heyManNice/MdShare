@@ -220,7 +220,8 @@ memory = {
                     }
                     info.time = Math.ceil((new Date().getTime()-info.time)/1000);
                     if(count == tryCount){
-
+                        stdio.printf(`<span style="color:#E74856">Error: </span>Timeout was reached(${info.time}s).Please check the GitHub network connection.`);
+                        stdlib.showInput(1);
                     }else{
                         stdio.printf(`Fetched ${info.lenth} kB in ${info.time}s (${info.lenth/info.time} kB/s)`);
                         await sleep(100);
