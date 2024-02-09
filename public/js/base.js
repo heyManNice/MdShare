@@ -27,6 +27,7 @@ memory = {
                 printf:function(string,...format){
                     document.querySelector("#cmd_div").innerHTML+=`<p>${string}</p>`;
                     window.scrollTo(0, document.body.scrollHeight);
+                    document.querySelector("#input_cmd input").focus();
                 }
             },
             stdlib:{
@@ -262,6 +263,8 @@ memory = {
         document.removeEventListener('error',self.loadError,true);
         window.onload = async function(){
             document.querySelector("html").innerHTML = `
+                <div style="dispaly:none" class="procedure"></div>
+                <span class="tty">
                 <p>Linux debian 6.1.0-10-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.38-1 (2023-07-14) x86_64</p><br>
                 <p>The programs included with the Debian GNU/Linux system are free software;</p>
                 <p>the exact distribution terms for each program are described in the</p>
@@ -272,6 +275,7 @@ memory = {
                 <div id="fail_div"></div>
                 <div id="cmd_div"></div>
                 <p id="input_cmd"></p>
+                </span>
                 <style>
                     body,html{
                         margin: 0;
