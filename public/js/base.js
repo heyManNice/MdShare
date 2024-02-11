@@ -12,7 +12,7 @@ memory = {
     etc:{
         profile:`/bin`,
         apt:{
-            "sources.list":"http://127.0.0.1:5500/MdShare/apt_src.js"
+            "sources.list":"https://heymannice.github.io/staticAssets/MdShare/apt_src.js"
         }
     },
     root:{

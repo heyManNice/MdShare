@@ -236,9 +236,7 @@ section{
     }
     .comment_card{
         height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        text-align: center;
         font-size: 0.75rem;
         color: var(--main-subtext-color);
     }
@@ -376,6 +374,74 @@ section{
         to{
             transform: scale(1);
         }
+    }
+    .comment_card{
+        height: 40px;
+        text-align: center;
+        font-size: 0.75rem;
+        color: var(--main-subtext-color);
+    }
+    .comment_send{
+        width: 100%;
+    }
+    .comment_send p{
+        padding-top: 10px;
+        border-top: 2px solid var(--main-theme-color);
+        padding-left: 3px;
+        margin: 5 0px;
+    }
+    .comment_send>div{
+        height: 50px;
+        margin-bottom: 10px;
+        position: relative;
+    }
+    .comment_send div input{
+        height: 100%;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        
+        padding-left: 5px;
+        border-bottom: 1px solid var(--main-shadow-color);
+        width: 100%;
+    }
+    .comment_send div input[type=text]{
+        width: 73%;
+    }
+    .comment_send div input[type=submit]{
+        position: absolute;
+        width: 25%;
+        right: 0px;
+        cursor: pointer;
+        border-left: none;
+        padding-left: 0;
+        border: none;
+        transition: 300ms;
+    }
+    .comment_send div input[type=submit]:hover{
+        border: none;
+        background-color: var(--main-theme-color);
+        color: var(--main-bg-color);
+    }
+    .comment_send>textarea{
+        width: 100%;
+        height: 180px;
+        outline: none;
+        box-sizing: border-box;
+        border: none;
+        
+        padding-left: 5px;
+        resize: vertical;
+        border-bottom: 1px solid var(--main-shadow-color);
+        margin-bottom: 20px;
+    }
+    .comment_send div input:hover,.comment_send>textarea:hover{
+        border-left: 2px solid var(--main-theme-color);
+        padding-left: 3px;
+    }
+    .comment_send div input:focus,.comment_send>textarea:focus{
+        border-left: 2px solid var(--main-theme-color);
+        padding-left: 3px;
     }
 }
 

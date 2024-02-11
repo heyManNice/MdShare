@@ -1,7 +1,12 @@
 .footerInfo{
     margin-top: 100px;
-    display: none;
+    color:var(--main-subtext-color);
 }
 .footerInfo p{
     margin: 0;
+    text-align: center;
+    font-size: 0.75rem;
+}
+.footerInfo p .github{
+    cursor: pointer;
 }
