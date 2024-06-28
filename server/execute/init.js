@@ -61,7 +61,18 @@ const self = {
     loadRoute:function(){
         let jsArr = self.getJsArr();
         let objArr = self.getObjArr(jsArr);
-        console.log(`${'类型'.padEnd(3)} ${'路径'.padEnd(18)} ${'文件名'.padEnd(12)} 注释`);
+        let padLength = {
+            method:0,
+            route:0,
+            basename:0,
+        };
+        for(item in objArr){
+            let y = 0;
+            if(objArr[item].method.length>padLength.method)padLength.method=objArr[item].method.length+y;
+            if(objArr[item].route.length>padLength.route)padLength.route=objArr[item].route.length+y;
+            if(objArr[item].basename.length>padLength.basename)padLength.basename=objArr[item].basename.length+y;
+        }
+        console.log(`${'类型'.padEnd(padLength.method)} ${'路径'.padEnd(padLength.route)} ${'文件名'.padEnd(padLength.basename)} 注释`);
         for(let i=0;i<objArr.length;i++){
             let obj = objArr[i];
             if(obj.sweet){
@@ -69,7 +80,7 @@ const self = {
                     continue;
                 }
             }
-            console.log(`${obj.method.padEnd(5)} ${obj.route.padEnd(20)} ${obj.basename.padEnd(15)} ${utils.getFileExplan("./server/route/"+obj.basename)}`);
+            console.log(`${obj.method.padEnd(padLength.method+2)} ${obj.route.padEnd(padLength.route+2)} ${obj.basename.padEnd(padLength.basename+2)} ${utils.getFileExplan("./server/route/"+obj.basename)}`);
             self.server[obj.method](obj.route,obj.main);
         }
         console.log("".padEnd(40,"-"));
